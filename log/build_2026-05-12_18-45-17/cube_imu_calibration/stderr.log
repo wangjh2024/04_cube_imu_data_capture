@@ -1,3 +1,0 @@
-/home/wangjh/code/06imu_cube_calib/cube_imu_calibration/src/direct_sensor_reader.cpp:176:13: warning: ‘std::string cube_imu_calibration::{anonymous}::profileSummary(const std::shared_ptr<ob::VideoStreamProfile>&)’ defined but not used [-Wunused-function]
-  176 | std::string profileSummary(const std::shared_ptr<ob::VideoStreamProfile> & profile)
-      |             ^~~~~~~~~~~~~~
