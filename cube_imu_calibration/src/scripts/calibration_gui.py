@@ -2426,43 +2426,29 @@ class MotionGuideWidget(QWidget):
         painter.drawPath(path)
 
     def _draw_cube(self, painter: QPainter, area: QRectF) -> None:
-        center = QPointF(area.center().x() - min(28.0, area.width() * 0.05), area.center().y() + 4)
+        center = QPointF(area.center().x() - min(24.0, area.width() * 0.04), area.center().y() + 12)
         painter.save()
         painter.translate(center)
-        painter.scale(1.5, 1.5)
+        painter.scale(1.35, 1.35)
 
-        strap = QPainterPath()
-        strap.moveTo(QPointF(-32, 18))
-        strap.cubicTo(
-            QPointF(-38, 40),
-            QPointF(34, 42),
-            QPointF(30, 18),
-        )
-        painter.setPen(QPen(QColor("#101828"), 5.2, Qt.SolidLine, Qt.RoundCap))
-        painter.drawPath(strap)
-        painter.setPen(QPen(QColor("#667085"), 1.2))
-        for offset in (-18, 0, 18):
-            painter.drawEllipse(QPointF(offset, 31), 1.8, 1.8)
+        imu_body = QRectF(-142, -10, 122, 32)
+        connector = QRectF(-25, -9, 14, 31)
+        tag_face = QRectF(-16, -54, 76, 76)
 
-        imu_body = QRectF(-42, -6, 70, 26)
-        painter.setPen(QPen(QColor("#475467"), 1.2))
+        painter.setPen(QPen(QColor("#101828"), 3.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
         painter.setBrush(QColor("#101828"))
-        painter.drawRoundedRect(imu_body, 5, 5)
-        painter.fillRect(imu_body.adjusted(8, 7, -45, -8), QColor("#98a2b3"))
+        painter.drawRoundedRect(imu_body, 4, 4)
+        painter.drawRoundedRect(connector, 4, 4)
+        painter.fillRect(imu_body.adjusted(10, 8, -92, -8), QColor("#98a2b3"))
         painter.setPen(QColor("#ffffff"))
         painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
         painter.drawText(imu_body, Qt.AlignCenter, "IMU")
 
-        tag_center = QPointF(28, -26)
-        tag_side = min(max(area.width() * 0.10, 34.0), 46.0)
-        painter.save()
-        painter.translate(tag_center)
-        painter.rotate(-18.0)
-        tag_rect = QRectF(-tag_side * 0.5, -tag_side * 0.5, tag_side, tag_side)
-        painter.setPen(QPen(QColor("#06aed5"), 2.0))
+        painter.setPen(QPen(QColor("#06aed5"), 2.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
         painter.setBrush(QColor("#101828"))
-        painter.drawRect(tag_rect)
-        cell = tag_side / 6.0
+        painter.drawRoundedRect(tag_face, 2, 2)
+        tag_rect = tag_face.adjusted(8, 8, -8, -8)
+        cell = tag_rect.width() / 6.0
         white_cells = ((1, 1), (3, 1), (4, 2), (1, 3), (2, 3), (3, 4), (4, 4))
         painter.setPen(Qt.NoPen)
         painter.setBrush(QColor("#f8fafc"))
@@ -2473,21 +2459,24 @@ class MotionGuideWidget(QWidget):
                 cell * 0.92,
                 cell * 0.92,
             ))
-        painter.setPen(QPen(QColor("#f04438"), 2.0, Qt.SolidLine, Qt.RoundCap))
-        self._draw_arrow(painter, QPointF(0, 0), QPointF(tag_side * 0.42, 0), "#f04438", 2.0)
-        painter.setPen(QPen(QColor("#12b76a"), 2.0, Qt.SolidLine, Qt.RoundCap))
-        self._draw_arrow(painter, QPointF(0, 0), QPointF(0, tag_side * 0.42), "#12b76a", 2.0)
+
+        axis_origin = QPointF(tag_face.left() + tag_face.width() * 0.54, tag_face.top() + tag_face.height() * 0.54)
+        axis_x = QPointF(axis_origin.x() + 29, axis_origin.y() - 3)
+        axis_y = QPointF(axis_origin.x() - 20, axis_origin.y() - 31)
+        axis_z = QPointF(axis_origin.x() - 24, axis_origin.y() + 24)
+        self._draw_arrow(painter, axis_origin, axis_x, "#f04438", 2.0)
+        self._draw_arrow(painter, axis_origin, axis_y, "#12b76a", 2.0)
+        self._draw_arrow(painter, axis_origin, axis_z, "#2e90fa", 2.0)
         painter.setPen(QPen(QColor("#2e90fa"), 2.0))
         painter.setBrush(QColor("#2e90fa"))
-        painter.drawEllipse(QPointF(0, 0), 3.0, 3.0)
+        painter.drawEllipse(axis_origin, 3.0, 3.0)
         painter.setPen(QColor("#f04438"))
         painter.setFont(QFont("Sans Serif", 7, QFont.Bold))
-        painter.drawText(QPointF(tag_side * 0.24, -3.0), "+X")
+        painter.drawText(QPointF(axis_x.x() + 2.0, axis_x.y() - 2.0), "X")
         painter.setPen(QColor("#12b76a"))
-        painter.drawText(QPointF(3.0, tag_side * 0.36), "+Y")
+        painter.drawText(QPointF(axis_y.x() - 8.0, axis_y.y() - 2.0), "Y")
         painter.setPen(QColor("#2e90fa"))
-        painter.drawText(QPointF(-tag_side * 0.48, -tag_side * 0.28), "+Z入")
-        painter.restore()
+        painter.drawText(QPointF(axis_z.x() - 8.0, axis_z.y() + 8.0), "Z")
         painter.restore()
 
     def _draw_arrow(
