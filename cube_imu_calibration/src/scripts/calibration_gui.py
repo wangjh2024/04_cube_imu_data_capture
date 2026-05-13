@@ -13,7 +13,7 @@ from collections import deque
 import numpy as np
 import rclpy
 from PyQt5.QtCore import QPointF, QRect, QRectF, QProcess, Qt, QTimer
-from PyQt5.QtGui import QColor, QFont, QImage, QPainter, QPainterPath, QPen, QPixmap
+from PyQt5.QtGui import QColor, QFont, QFontMetrics, QImage, QPainter, QPainterPath, QPen, QPixmap
 from PyQt5.QtWidgets import (
     QApplication,
     QDoubleSpinBox,
@@ -79,6 +79,8 @@ POSE_STILL_GYRO_WARN_DEG_S = 12.0
 POSE_GRAVITY_MIN_G = 0.70
 POSE_GRAVITY_MAX_G = 1.30
 POSE_AXIS_VERTICAL_MIN = 0.82
+POSE_REPROJ_SOFT_WARN_PX = 2.0
+POSE_REPROJ_BLOCK_PX = 4.0
 
 
 class DirectSensorConfigC(ctypes.Structure):
@@ -2078,6 +2080,40 @@ class StatusValue(QLabel):
         )
 
 
+class HeaderStatusValue(StatusValue):
+    FIXED_WIDTH = 580
+    FIXED_HEIGHT = 42
+
+    def __init__(self, text: str = "-") -> None:
+        super().__init__(text)
+        self.setFixedSize(self.FIXED_WIDTH, self.FIXED_HEIGHT)
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.setWordWrap(False)
+        self.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        self.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.setFont(QFont("Sans Serif", 9, QFont.Medium))
+
+    def set_state(self, text: str, state: str = "neutral", tooltip: str | None = None) -> None:
+        colors = {
+            "ok": ("#ecfdf3", "#027a48", "#abefc6", "就绪"),
+            "warn": ("#fffaeb", "#b54708", "#fedf89", "等待"),
+            "bad": ("#fef3f2", "#b42318", "#fecdca", "异常"),
+            "neutral": ("#f8fafc", "#344054", "#d0d5dd", "状态"),
+        }
+        bg, fg, border, label = colors.get(state, colors["neutral"])
+        raw_text = " ".join(str(text).split())
+        display = f"{label} | {raw_text}"
+        metrics = QFontMetrics(self.font())
+        self.setText(metrics.elidedText(display, Qt.ElideRight, self.width() - 28))
+        self.setToolTip(str(text) if tooltip is None else tooltip)
+        self.setStyleSheet(
+            "QLabel {"
+            f"background: {bg}; color: {fg}; border: 1px solid {border};"
+            "border-radius: 7px; padding: 0 12px;"
+            "}"
+        )
+
+
 class StablePreviewLabel(QLabel):
     def sizeHint(self):  # noqa: N802 - Qt override name.
         return self.minimumSize()
@@ -2288,7 +2324,7 @@ class MotionGuideWidget(QWidget):
         self.detection_enabled = False
         self.progress = 0.0
         self.time_text = ""
-        self.setMinimumHeight(220)
+        self.setMinimumHeight(160)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
     def set_guide(
@@ -2352,9 +2388,6 @@ class MotionGuideWidget(QWidget):
         painter.setPen(QPen(QColor("#d0d5dd"), 1.1, Qt.DashLine))
         painter.setBrush(QColor("#f8fafc"))
         painter.drawRoundedRect(area, 3, 3)
-        painter.setPen(QPen(QColor("#e4e7ec"), 1.0))
-        painter.drawLine(QPointF(area.center().x(), area.top()), QPointF(area.center().x(), area.bottom()))
-        painter.drawLine(QPointF(area.left(), area.center().y()), QPointF(area.right(), area.center().y()))
 
     def _cube_points(self, area: QRectF) -> tuple[list[QPointF], list[QPointF], list[QPointF]]:
         center = QPointF(area.center().x(), area.center().y() + 8)
@@ -2394,31 +2427,24 @@ class MotionGuideWidget(QWidget):
 
     def _draw_cube(self, painter: QPainter, area: QRectF) -> None:
         center = QPointF(area.center().x() - min(28.0, area.width() * 0.05), area.center().y() + 4)
-
-        cable = QPainterPath()
-        cable.moveTo(QPointF(center.x() - 42, center.y() + 13))
-        cable.cubicTo(
-            QPointF(center.x() - 88, center.y() + 2),
-            QPointF(area.left() + 70, area.center().y() + 28),
-            QPointF(area.left() + 26, area.bottom() - 8),
-        )
-        painter.setPen(QPen(QColor("#667085"), 3.0, Qt.SolidLine, Qt.RoundCap))
-        painter.drawPath(cable)
+        painter.save()
+        painter.translate(center)
+        painter.scale(1.5, 1.5)
 
         strap = QPainterPath()
-        strap.moveTo(QPointF(center.x() - 32, center.y() + 18))
+        strap.moveTo(QPointF(-32, 18))
         strap.cubicTo(
-            QPointF(center.x() - 38, center.y() + 40),
-            QPointF(center.x() + 34, center.y() + 42),
-            QPointF(center.x() + 30, center.y() + 18),
+            QPointF(-38, 40),
+            QPointF(34, 42),
+            QPointF(30, 18),
         )
         painter.setPen(QPen(QColor("#101828"), 5.2, Qt.SolidLine, Qt.RoundCap))
         painter.drawPath(strap)
         painter.setPen(QPen(QColor("#667085"), 1.2))
         for offset in (-18, 0, 18):
-            painter.drawEllipse(QPointF(center.x() + offset, center.y() + 31), 1.8, 1.8)
+            painter.drawEllipse(QPointF(offset, 31), 1.8, 1.8)
 
-        imu_body = QRectF(center.x() - 42, center.y() - 6, 70, 26)
+        imu_body = QRectF(-42, -6, 70, 26)
         painter.setPen(QPen(QColor("#475467"), 1.2))
         painter.setBrush(QColor("#101828"))
         painter.drawRoundedRect(imu_body, 5, 5)
@@ -2427,7 +2453,7 @@ class MotionGuideWidget(QWidget):
         painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
         painter.drawText(imu_body, Qt.AlignCenter, "IMU")
 
-        tag_center = QPointF(center.x() + 28, center.y() - 26)
+        tag_center = QPointF(28, -26)
         tag_side = min(max(area.width() * 0.10, 34.0), 46.0)
         painter.save()
         painter.translate(tag_center)
@@ -2461,6 +2487,7 @@ class MotionGuideWidget(QWidget):
         painter.drawText(QPointF(3.0, tag_side * 0.36), "+Y")
         painter.setPen(QColor("#2e90fa"))
         painter.drawText(QPointF(-tag_side * 0.48, -tag_side * 0.28), "+Z入")
+        painter.restore()
         painter.restore()
 
     def _draw_arrow(
@@ -2502,58 +2529,60 @@ class MotionGuideWidget(QWidget):
 
     def _draw_phase_motion(self, painter: QPainter, area: QRectF) -> None:
         center = QPointF(area.center().x() - min(28.0, area.width() * 0.05), area.center().y() + 4)
+        painter.save()
+        painter.translate(center)
+        painter.scale(1.5, 1.5)
         if not self.recording:
-            self._draw_arrow(painter, QPointF(center.x() - 90, center.y()), QPointF(center.x() - 50, center.y()), "#2e90fa")
-            self._draw_arrow(painter, QPointF(center.x() + 90, center.y()), QPointF(center.x() + 50, center.y()), "#2e90fa")
-            painter.setPen(QColor("#2e90fa"))
-            painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
-            painter.drawText(QRectF(center.x() - 120, center.y() + 18, 240, 18), Qt.AlignCenter, "模块居中，Tag 清晰可见")
+            self._draw_arrow(painter, QPointF(-90, 0), QPointF(-50, 0), "#2e90fa")
+            self._draw_arrow(painter, QPointF(90, 0), QPointF(50, 0), "#2e90fa")
+            painter.restore()
             return
 
         if self.phase == 0:
             painter.setPen(QPen(QColor("#12b76a"), 2.0))
-            painter.drawEllipse(center, 38, 30)
+            painter.drawEllipse(QPointF(0, 0), 38, 30)
             painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
-            painter.drawText(QRectF(center.x() - 55, center.y() + 36, 110, 18), Qt.AlignCenter, "静止")
+            painter.drawText(QRectF(-55, 36, 110, 18), Qt.AlignCenter, "静止")
         elif self.phase == 1:
-            self._draw_arc_arrow(painter, QRectF(center.x() - 70, center.y() - 42, 140, 84), 25, 250, "#f04438")
+            self._draw_arc_arrow(painter, QRectF(-70, -42, 140, 84), 25, 250, "#f04438")
             painter.setPen(QColor("#f04438"))
             painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
-            painter.drawText(QRectF(center.x() - 60, center.y() + 34, 120, 30), Qt.AlignCenter, "绕 +X\nID2/right")
+            painter.drawText(QRectF(-60, 34, 120, 30), Qt.AlignCenter, "绕 +X\nID2/right")
         elif self.phase == 2:
-            self._draw_arc_arrow(painter, QRectF(center.x() - 44, center.y() - 58, 88, 116), -65, 250, "#12b76a")
+            self._draw_arc_arrow(painter, QRectF(-44, -58, 88, 116), -65, 250, "#12b76a")
             painter.setPen(QColor("#12b76a"))
             painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
-            painter.drawText(QRectF(center.x() - 70, center.y() + 34, 140, 30), Qt.AlignCenter, "绕 +Y\nID3/bottom")
+            painter.drawText(QRectF(-70, 34, 140, 30), Qt.AlignCenter, "绕 +Y\nID3/bottom")
         elif self.phase == 3:
-            self._draw_arc_arrow(painter, QRectF(center.x() - 58, center.y() - 58, 116, 116), 210, -270, "#2e90fa")
+            self._draw_arc_arrow(painter, QRectF(-58, -58, 116, 116), 210, -270, "#2e90fa")
             painter.setPen(QColor("#2e90fa"))
             painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
-            painter.drawText(QRectF(center.x() - 58, center.y() + 36, 116, 28), Qt.AlignCenter, "绕 +Z\n入内")
+            painter.drawText(QRectF(-58, 36, 116, 28), Qt.AlignCenter, "绕 +Z\n入内")
         elif self.phase == 4:
-            self._draw_arrow(painter, QPointF(center.x() - 100, center.y() + 42), QPointF(center.x() - 46, center.y() + 14), "#f04438")
-            self._draw_arrow(painter, QPointF(center.x() + 100, center.y() - 42), QPointF(center.x() + 50, center.y() - 14), "#12b76a")
-            self._draw_arc_arrow(painter, QRectF(center.x() - 66, center.y() - 52, 132, 104), 200, 220, "#2e90fa")
+            self._draw_arrow(painter, QPointF(-100, 42), QPointF(-46, 14), "#f04438")
+            self._draw_arrow(painter, QPointF(100, -42), QPointF(50, -14), "#12b76a")
+            self._draw_arc_arrow(painter, QRectF(-66, -52, 132, 104), 200, 220, "#2e90fa")
         elif self.phase == 5:
             path = QPainterPath()
-            path.moveTo(QPointF(center.x() - 74, center.y()))
+            path.moveTo(QPointF(-74, 0))
             path.cubicTo(
-                QPointF(center.x() - 38, center.y() - 46),
-                QPointF(center.x() + 38, center.y() - 46),
-                QPointF(center.x() + 74, center.y()),
+                QPointF(-38, -46),
+                QPointF(38, -46),
+                QPointF(74, 0),
             )
             path.cubicTo(
-                QPointF(center.x() + 38, center.y() + 46),
-                QPointF(center.x() - 38, center.y() + 46),
-                QPointF(center.x() - 74, center.y()),
+                QPointF(38, 46),
+                QPointF(-38, 46),
+                QPointF(-74, 0),
             )
             painter.setPen(QPen(QColor("#7a5af8"), 2.6, Qt.SolidLine, Qt.RoundCap))
             painter.drawPath(path)
-            self._draw_arrow(painter, QPointF(center.x() + 50, center.y() - 20), QPointF(center.x() + 76, center.y()), "#7a5af8")
+            self._draw_arrow(painter, QPointF(50, -20), QPointF(76, 0), "#7a5af8")
         else:
             painter.setPen(QPen(QColor("#12b76a"), 3.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-            painter.drawLine(QPointF(center.x() - 38, center.y()), QPointF(center.x() - 8, center.y() + 28))
-            painter.drawLine(QPointF(center.x() - 8, center.y() + 28), QPointF(center.x() + 46, center.y() - 36))
+            painter.drawLine(QPointF(-38, 0), QPointF(-8, 28))
+            painter.drawLine(QPointF(-8, 28), QPointF(46, -36))
+        painter.restore()
 
     def _draw_axis_legend(self, painter: QPainter, area: QRectF) -> None:
         legend = QRectF(area.right() - 102, area.top() + 7, 92, 58)
@@ -2638,10 +2667,9 @@ class CalibrationGui(QWidget):
         header.addWidget(title)
         header.addStretch(1)
 
-        self.tip = StatusValue("正在连接直连硬件采集...")
-        self.tip.setMinimumWidth(560)
-        self.tip.setWordWrap(True)
-        header.addWidget(self.tip)
+        self.tip = HeaderStatusValue("正在连接直连硬件采集...")
+        self.tip.set_state("正在连接直连硬件采集...", "warn")
+        header.addWidget(self.tip, 0, Qt.AlignRight | Qt.AlignVCenter)
         outer.addLayout(header)
 
         content = QSplitter(Qt.Horizontal, self)
@@ -2664,7 +2692,7 @@ class CalibrationGui(QWidget):
         center_layout = QVBoxLayout(center_column)
         center_layout.setContentsMargins(0, 0, 0, 0)
         center_layout.setSpacing(10)
-        center_layout.addWidget(self._image_group(), 1)
+        center_layout.addWidget(self._image_group(), 2)
         center_layout.addWidget(self._motion_group(), 1)
 
         right_scroll = QScrollArea()
@@ -3270,18 +3298,22 @@ class CalibrationGui(QWidget):
             if cube_pose_rate < MIN_RECORD_CUBE_POSE_RATE_HZ:
                 return "warn", f"等待 Cube pose 频率≥{MIN_RECORD_CUBE_POSE_RATE_HZ:.0f}Hz 当前 {cube_pose_rate:.1f}Hz"
             reproj_error = float(self.bridge.last_reproj_error)
-            if np.isfinite(reproj_error) and reproj_error > 2.0:
-                return "warn", f"重投影偏大 {reproj_error:.1f}px"
+            reproj_hint = ""
+            if np.isfinite(reproj_error):
+                if reproj_error > POSE_REPROJ_BLOCK_PX:
+                    return "warn", f"重投影过大 {reproj_error:.1f}px，请让 Tag 更清晰/更正对"
+                if reproj_error > POSE_REPROJ_SOFT_WARN_PX:
+                    reproj_hint = f"；重投影 {reproj_error:.1f}px，可采集但建议靠近或放慢"
             if index == 4 and self.bridge.last_detection_tag_count < 2:
                 return "warn", "请移到相邻面边界，让双 Tag 同时可见"
 
         if index == 0:
-            return "ok", "姿态通过：居中静止"
+            return "ok", "姿态通过：居中静止" + reproj_hint
         elif index in (1, 2, 3):
             axis_name = ("X", "Y", "Z")[index - 1]
-            return "ok", f"准备通过：Cube 可见，开始绕 {axis_name} 轴慢速往返"
+            return "ok", f"准备通过：Cube 可见，开始绕 {axis_name} 轴慢速往返" + reproj_hint
 
-        return "ok", "姿态通过：可以开始本段动作"
+        return "ok", "姿态通过：可以开始本段动作" + reproj_hint
 
     def _phase_duration(self, schedule, index: int) -> float:
         _, start, end, _, _ = schedule[index]
