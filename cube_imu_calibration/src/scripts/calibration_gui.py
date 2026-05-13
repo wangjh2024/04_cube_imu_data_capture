@@ -65,12 +65,12 @@ MIN_RECORD_CUBE_POSE_RATE_HZ = 8.0
 MIN_RECORD_IMU_RATE_HZ = 200.0
 RATE_READY_TOLERANCE_HZ = 0.25
 ACTION_PHASES = (
-    ("静止", "Cube 放在画面中央，保持静止", 10.0),
-    ("绕 X 轴", "绕 Cube X 轴慢速往返旋转，不要甩动，不要出画", 20.0),
-    ("绕 Y 轴", "绕 Cube Y 轴慢速往返旋转，至少保持一个 Tag 可见", 20.0),
-    ("绕 Z 轴", "绕 Cube Z 轴慢速往返旋转，避免空白背面正对相机", 20.0),
+    ("静止", "带 Tag 的 IMU 模块放在画面中央，保持静止", 10.0),
+    ("绕 X 轴", "手持 IMU 模块绕自身 X 轴慢速往返旋转，不要甩动，不要出画", 20.0),
+    ("绕 Y 轴", "手持 IMU 模块绕自身 Y 轴慢速往返旋转，至少保持一个 Tag 可见", 20.0),
+    ("绕 Z 轴", "手持 IMU 模块绕自身 Z 轴慢速往返旋转，避免空白面正对相机", 20.0),
     ("多面过渡+小平移", "经过 ID0-ID1/2/3/4 边界，尽量双 Tag 同时可见，加入 5-10cm 小平移", 30.0),
-    ("8字+三轴组合", "小范围 8 字和平移 5-15cm，同时做三轴慢速组合旋转", 50.0),
+    ("8字+三轴组合", "手持 IMU 模块小范围 8 字和平移 5-15cm，同时做三轴慢速组合旋转", 50.0),
 )
 PHASE_PRECHECK_RATIO = 0.25
 PHASE_PRECHECK_MAX_SEC = 3.0
@@ -2292,7 +2292,7 @@ class MotionGuideWidget(QWidget):
         painter.setPen(QPen(QColor(border), 1.4))
         painter.drawRoundedRect(area, 4, 4)
 
-        title = "采集前：IMU 模块放入画面中央" if not self.recording else self._phase_title()
+        title = "采集前：带 Tag 的 IMU 模块放入画面中央" if not self.recording else self._phase_title()
         painter.setPen(QColor("#101828"))
         painter.setFont(QFont("Sans Serif", 9, QFont.Bold))
         painter.drawText(area.adjusted(10, 6, -10, 0), Qt.AlignTop | Qt.AlignLeft, title)
@@ -2370,19 +2370,65 @@ class MotionGuideWidget(QWidget):
         painter.drawPath(path)
 
     def _draw_cube(self, painter: QPainter, area: QRectF) -> None:
-        front, top, side = self._cube_points(area)
-        self._draw_polygon(painter, top, "#e0f2fe", "#84caff")
-        self._draw_polygon(painter, side, "#d1fadf", "#75e0a7")
-        self._draw_polygon(painter, front, "#ffffff", "#98a2b3")
+        center = QPointF(area.center().x(), area.center().y() + 8)
 
-        front_rect = QRectF(front[0], front[2])
-        tag_rect = front_rect.adjusted(front_rect.width() * 0.25, front_rect.height() * 0.18,
-                                       -front_rect.width() * 0.25, -front_rect.height() * 0.18)
-        painter.fillRect(tag_rect, QColor("#101828"))
-        painter.fillRect(tag_rect.adjusted(7, 7, -7, -7), QColor("#ffffff"))
-        painter.setPen(QColor("#101828"))
+        cable = QPainterPath()
+        cable.moveTo(QPointF(center.x() - 42, center.y() + 15))
+        cable.cubicTo(
+            QPointF(center.x() - 90, center.y() + 6),
+            QPointF(area.left() + 70, center.y() + 36),
+            QPointF(area.left() + 28, area.bottom() - 18),
+        )
+        painter.setPen(QPen(QColor("#475467"), 3.0, Qt.SolidLine, Qt.RoundCap))
+        painter.drawPath(cable)
+
+        strap = QPainterPath()
+        strap.moveTo(QPointF(center.x() - 32, center.y() + 18))
+        strap.cubicTo(
+            QPointF(center.x() - 40, center.y() + 48),
+            QPointF(center.x() + 36, center.y() + 50),
+            QPointF(center.x() + 30, center.y() + 18),
+        )
+        painter.setPen(QPen(QColor("#101828"), 6.0, Qt.SolidLine, Qt.RoundCap))
+        painter.drawPath(strap)
+        painter.setPen(QPen(QColor("#667085"), 1.2))
+        for offset in (-18, 0, 18):
+            painter.drawEllipse(QPointF(center.x() + offset, center.y() + 36), 2.2, 2.2)
+
+        imu_body = QRectF(center.x() - 44, center.y() - 6, 74, 28)
+        painter.setPen(QPen(QColor("#475467"), 1.2))
+        painter.setBrush(QColor("#101828"))
+        painter.drawRoundedRect(imu_body, 5, 5)
+        painter.fillRect(imu_body.adjusted(8, 7, -45, -8), QColor("#98a2b3"))
+        painter.setPen(QColor("#ffffff"))
         painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
-        painter.drawText(tag_rect, Qt.AlignCenter, "IMU")
+        painter.drawText(imu_body, Qt.AlignCenter, "IMU")
+
+        tag_center = QPointF(center.x() + 28, center.y() - 28)
+        tag_side = min(area.width() * 0.14, 48.0)
+        painter.save()
+        painter.translate(tag_center)
+        painter.rotate(-18.0)
+        tag_rect = QRectF(-tag_side * 0.5, -tag_side * 0.5, tag_side, tag_side)
+        painter.setPen(QPen(QColor("#06aed5"), 2.0))
+        painter.setBrush(QColor("#101828"))
+        painter.drawRect(tag_rect)
+        cell = tag_side / 6.0
+        white_cells = ((1, 1), (3, 1), (4, 2), (1, 3), (2, 3), (3, 4), (4, 4))
+        painter.setPen(Qt.NoPen)
+        painter.setBrush(QColor("#f8fafc"))
+        for col, row in white_cells:
+            painter.drawRect(QRectF(
+                tag_rect.left() + col * cell,
+                tag_rect.top() + row * cell,
+                cell * 0.92,
+                cell * 0.92,
+            ))
+        painter.setPen(QPen(QColor("#f04438"), 2.0, Qt.SolidLine, Qt.RoundCap))
+        painter.drawLine(QPointF(0, 0), QPointF(tag_side * 0.42, 0))
+        painter.setPen(QPen(QColor("#12b76a"), 2.0, Qt.SolidLine, Qt.RoundCap))
+        painter.drawLine(QPointF(0, 0), QPointF(0, -tag_side * 0.42))
+        painter.restore()
 
     def _draw_arrow(
         self,
@@ -2971,16 +3017,6 @@ class CalibrationGui(QWidget):
             runtime_buttons.setColumnStretch(column, 1)
         layout.addLayout(runtime_buttons, 1, 0, 1, 2)
 
-        self.sim_state = StatusValue("直连硬件模式下不使用 ROS 仿真输入")
-        self.start_sim_button = QPushButton("启动仿真测试")
-        self.stop_sim_button = QPushButton("停止仿真测试")
-        self.start_sim_button.setEnabled(False)
-        self.stop_sim_button.setEnabled(False)
-        self.start_sim_button.clicked.connect(self._start_sim_node)
-        self.stop_sim_button.clicked.connect(self._stop_sim_node)
-        self.sim_state.hide()
-        self.start_sim_button.hide()
-        self.stop_sim_button.hide()
         layout.setColumnStretch(1, 1)
         return group
 
@@ -3702,24 +3738,10 @@ class CalibrationGui(QWidget):
         layout.addWidget(label, 8, 0)
         layout.addWidget(self.progress_bar, 8, 1)
 
-        buttons = QGridLayout()
-        buttons.setHorizontalSpacing(8)
-        self.start_button = QPushButton("开始录制")
-        self.phase_collect_button = QPushButton("录制开始后先检测")
         self.stop_button = QPushButton("停止录制")
-        self.start_button.setObjectName("PrimaryAction")
         self.stop_button.setObjectName("DangerAction")
-        self.start_button.clicked.connect(self._manual_start_recording)
-        self.phase_collect_button.clicked.connect(self._start_current_phase_collection)
         self.stop_button.clicked.connect(self._manual_stop_recording)
-        for column, button in enumerate((
-            self.start_button,
-            self.phase_collect_button,
-            self.stop_button,
-        )):
-            buttons.addWidget(self._fit_right_button(button), 0, column)
-            buttons.setColumnStretch(column, 1)
-        layout.addLayout(buttons, 9, 0, 1, 2)
+        layout.addWidget(self._fit_right_button(self.stop_button), 9, 0, 1, 2)
 
         self.motion_hint = StatusValue(self.current_motion_hint)
         self.motion_hint.setWordWrap(True)
@@ -3829,13 +3851,25 @@ class CalibrationGui(QWidget):
 
         return image_ready and imu_ready and camera_info_ready
 
+    def _nearest_imu_delta_for_image(self) -> float | None:
+        image_stamp = float(self.bridge.last_image_stamp)
+        if image_stamp <= 0.0:
+            return None
+        imu_stamps = [
+            float(sample[0])
+            for sample in self.bridge.imu_samples
+            if sample and float(sample[0]) > 0.0
+        ]
+        if not imu_stamps:
+            return None
+        nearest = min(imu_stamps, key=lambda stamp: abs(stamp - image_stamp))
+        return image_stamp - nearest
+
     def _timestamp_ready(self) -> bool:
-        stamps = (
-            self.bridge.last_image_stamp,
-            self.bridge.last_imu_stamp,
-            self.bridge.last_camera_info_stamp,
-        )
-        if any(stamp <= 0.0 for stamp in stamps):
+        image_stamp = float(self.bridge.last_image_stamp)
+        camera_info_stamp = float(self.bridge.last_camera_info_stamp)
+        nearest_imu_delta = self._nearest_imu_delta_for_image()
+        if image_stamp <= 0.0 or camera_info_stamp <= 0.0 or nearest_imu_delta is None:
             return False
         issues = (
             self.bridge.last_image_stamp_issue,
@@ -3844,7 +3878,8 @@ class CalibrationGui(QWidget):
         )
         if any(issue and issue != "ok" for issue in issues):
             return False
-        return max(stamps) - min(stamps) <= 0.05
+        image_info_delta = image_stamp - camera_info_stamp
+        return max(abs(nearest_imu_delta), abs(image_info_delta)) <= 0.05
 
     def _manual_start_recording(self) -> None:
         if not self.bridge.direct_sensor.is_started():
@@ -3947,7 +3982,11 @@ class CalibrationGui(QWidget):
         if status is not None and not status.recording:
             self.stop_record_request_wall = 0.0
             stop_pending = False
-        self.start_button.setEnabled(ready_to_record and not recording)
+        self.one_click_button.setEnabled(
+            self.bridge.direct_sensor.available()
+            and not recording
+            and not self.direct_start_in_progress
+        )
         self.stop_button.setEnabled(recording and not stop_pending)
         self.stop_button.setText("停止中..." if stop_pending and recording else "停止录制")
         settings_enabled = not self.bridge.direct_sensor.is_started() and not self.direct_start_in_progress
@@ -3994,10 +4033,6 @@ class CalibrationGui(QWidget):
             self.prepare_button.setEnabled(True)
             self.stop_runtime_button.setEnabled(False)
 
-        self.sim_state.set_state("已禁用：当前只允许 Orbbec SDK + Cube 串口 IMU 直连采集", "neutral")
-        self.start_sim_button.setEnabled(False)
-        self.stop_sim_button.setEnabled(False)
-
         missing = self._readiness_missing_reasons()
         if missing:
             self.one_click_button.setToolTip("等待：" + "、".join(missing))
@@ -4016,7 +4051,7 @@ class CalibrationGui(QWidget):
         stats = self.bridge.direct_sensor.stats()
         image_rate = max(self.bridge.image_rate_hz(), float(stats.image_rate_hz))
         imu_rate = max(self.bridge.imu_rate_hz(), float(stats.imu_rate_hz))
-        image_state = "ok" if image_rate >= MIN_RECORD_IMAGE_RATE_HZ else "warn"
+        image_state = "ok" if self._image_stream_ready(time.monotonic()) else "warn"
         imu_state = "ok" if imu_rate >= MIN_RECORD_IMU_RATE_HZ else "warn"
         camera_state = "ok" if self.bridge.camera_info_ready else "warn"
         self.values["image_topic"].set_state(
@@ -4049,10 +4084,11 @@ class CalibrationGui(QWidget):
         image_rate = max(self.bridge.image_rate_hz(), float(stats.image_rate_hz))
         imu_rate = max(self.bridge.imu_rate_hz(), float(stats.imu_rate_hz))
         if sensor_started:
+            image_ready = image_rate + RATE_READY_TOLERANCE_HZ >= MIN_RECORD_IMAGE_RATE_HZ
             self.values["real_sensor_node"].set_state(
                 f"直连运行：{self.bridge.direct_sensor_status}；"
                 f"image={image_rate:.1f}Hz imu={imu_rate:.1f}Hz",
-                "ok" if image_rate >= MIN_RECORD_IMAGE_RATE_HZ else "warn",
+                "ok" if image_ready else "warn",
             )
         else:
             self.values["real_sensor_node"].set_state(
@@ -4164,11 +4200,10 @@ class CalibrationGui(QWidget):
         )
 
     def _update_timestamp_diag(self) -> None:
-        stamps = {
-            "image": self.bridge.last_image_stamp,
-            "imu": self.bridge.last_imu_stamp,
-            "camera_info": self.bridge.last_camera_info_stamp,
-        }
+        image_stamp = float(self.bridge.last_image_stamp)
+        imu_stamp = float(self.bridge.last_imu_stamp)
+        camera_info_stamp = float(self.bridge.last_camera_info_stamp)
+        nearest_imu_delta = self._nearest_imu_delta_for_image()
         issues = [
             issue
             for issue in (
@@ -4179,17 +4214,21 @@ class CalibrationGui(QWidget):
             if issue and issue != "ok"
         ]
         parts = []
-        if stamps["image"] > 0.0 and stamps["imu"] > 0.0:
-            parts.append(f"Δimage-imu={stamps['image'] - stamps['imu']:+.4f}s")
-        if stamps["image"] > 0.0 and stamps["camera_info"] > 0.0:
-            parts.append(f"Δimage-info={stamps['image'] - stamps['camera_info']:+.4f}s")
-        if stamps["imu"] > 0.0 and stamps["camera_info"] > 0.0:
-            parts.append(f"Δimu-info={stamps['imu'] - stamps['camera_info']:+.4f}s")
+        if nearest_imu_delta is not None:
+            parts.append(f"最近IMU偏差={nearest_imu_delta:+.4f}s")
+        if image_stamp > 0.0 and camera_info_stamp > 0.0:
+            parts.append(f"图像-内参={image_stamp - camera_info_stamp:+.4f}s")
+        if image_stamp > 0.0 and imu_stamp > 0.0:
+            latest_delta = image_stamp - imu_stamp
+        else:
+            latest_delta = None
 
-        max_delta = 0.0
-        valid = [value for value in stamps.values() if value > 0.0]
-        if len(valid) >= 2:
-            max_delta = max(valid) - min(valid)
+        max_delta = max(
+            abs(nearest_imu_delta) if nearest_imu_delta is not None else float("inf"),
+            abs(image_stamp - camera_info_stamp)
+            if image_stamp > 0.0 and camera_info_stamp > 0.0
+            else float("inf"),
+        )
 
         if not parts:
             text = "等待三路 header.stamp"
@@ -4200,7 +4239,13 @@ class CalibrationGui(QWidget):
         if issues:
             text += "  |  " + "；".join(issues)
             state = "bad"
-        self.values["timestamp_diag"].set_state(text, state)
+        tooltip = text
+        if latest_delta is not None:
+            tooltip += (
+                f"\n最新图像-最新IMU={latest_delta:+.4f}s；"
+                "图像 15Hz、IMU 500Hz 时该值会随 GUI 刷新抖动，判定以最近IMU偏差为准。"
+            )
+        self.values["timestamp_diag"].set_state(text, state, tooltip)
 
     def _make_preview_pixmap(self, image: QImage, source: str, age: float) -> QPixmap:
         del age

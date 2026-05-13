@@ -30,7 +30,6 @@ REQUIRED_PATHS = [
     "cube_imu_calibration/config/apriltag_params.yaml",
     "cube_imu_calibration/launch/gui_launch.py",
     "cube_imu_calibration/launch/runtime_launch.py",
-    "cube_imu_calibration/launch/sim_demo_launch.py",
     "cube_imu_calibration/src/scripts/calibration_gui.py",
 ]
 

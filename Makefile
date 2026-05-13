@@ -1,4 +1,4 @@
-.PHONY: help check check-project check-env check-data data-strict capture-manifest build launch-gui launch-sim status
+.PHONY: help check check-project check-env check-data data-strict capture-manifest build launch-gui status
 
 PYTHON ?= python3
 DATASET ?= output_bag
@@ -17,7 +17,6 @@ help:
 	@printf "%s\n" "  make capture-manifest Write DATASET/capture_manifest.json"
 	@printf "%s\n" "  make build            colcon build cube_imu_calibration"
 	@printf "%s\n" "  make launch-gui       Launch formal capture GUI"
-	@printf "%s\n" "  make launch-sim       Launch simulation GUI"
 	@printf "%s\n" "  make status           Show git status"
 
 check: check-project check-data
@@ -42,9 +41,6 @@ build:
 
 launch-gui:
 	bash -lc 'source install/setup.bash && ros2 launch $(PACKAGE) gui_launch.py'
-
-launch-sim:
-	bash -lc 'source install/setup.bash && ros2 launch $(PACKAGE) sim_demo_launch.py'
 
 status:
 	git status --short --branch

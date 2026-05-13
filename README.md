@@ -58,7 +58,6 @@ make data-strict DATASET=output_bag_YYYYMMDD_HHMMSS
 make capture-manifest DATASET=output_bag_YYYYMMDD_HHMMSS
 make build          # colcon build cube_imu_calibration
 make launch-gui     # 启动正式采集 GUI
-make launch-sim     # 启动仿真 GUI
 make status         # 查看 git 状态
 ```
 
