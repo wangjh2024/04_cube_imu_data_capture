@@ -2435,6 +2435,17 @@ class MotionGuideWidget(QWidget):
         connector = QRectF(-25, -9, 14, 31)
         tag_face = QRectF(-16, -54, 76, 76)
 
+        strap = QPainterPath()
+        strap.moveTo(QPointF(-92, 20))
+        strap.cubicTo(QPointF(-78, 54), QPointF(28, 56), QPointF(45, 20))
+        painter.setPen(QPen(QColor("#101828"), 6.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+        painter.setBrush(Qt.NoBrush)
+        painter.drawPath(strap)
+        painter.setPen(QPen(QColor("#98a2b3"), 1.1))
+        painter.setBrush(QColor("#f2f4f7"))
+        for hole_x in (-56, -22, 12, 34):
+            painter.drawEllipse(QPointF(hole_x, 39), 2.0, 2.0)
+
         painter.setPen(QPen(QColor("#101828"), 3.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
         painter.setBrush(QColor("#101828"))
         painter.drawRoundedRect(imu_body, 4, 4)
