@@ -1,0 +1,279 @@
+[0.000000] (-) TimerEvent: {}
+[0.000245] (cube_imu_calibration) JobQueued: {'identifier': 'cube_imu_calibration', 'dependencies': OrderedDict()}
+[0.000607] (cube_imu_calibration) JobStarted: {'identifier': 'cube_imu_calibration'}
+[0.005671] (cube_imu_calibration) JobProgress: {'identifier': 'cube_imu_calibration', 'progress': 'cmake'}
+[0.006004] (cube_imu_calibration) JobProgress: {'identifier': 'cube_imu_calibration', 'progress': 'build'}
+[0.006422] (cube_imu_calibration) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration', '--', '-j24', '-l24'], 'cwd': '/home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration', 'env': OrderedDict({'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'VSCODE_CWD': '/home/wangjh', 'VSCODE_ESM_ENTRYPOINT': 'vs/workbench/api/node/extensionHostProcess', 'CODEX_CI': '1', 'USER': 'wangjh', 'CODEX_INTERNAL_ORIGINATOR_OVERRIDE': 'codex_vscode', 'VSCODE_NLS_CONFIG': '{"userLocale":"zh-cn","osLocale":"zh-cn","resolvedLanguage":"zh-cn","defaultMessagesFile":"/usr/share/code/resources/app/out/nls.messages.json","languagePack":{"translationsConfigFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/tcf.json","messagesFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/8b640eef5a6c6089c029249d48efa5c99adf7d51/nls.messages.json","corruptMarkerFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/corrupted.info"},"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"b912e1cc94c8380c6bb426bdce2c540f.zh-cn","_languagePackSupport":true,"_translationsConfigFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/tcf.json","_cacheRoot":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn","_resolvedLanguagePackCoreLocation":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/8b640eef5a6c6089c029249d48efa5c99adf7d51","_corruptedFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/corrupted.info"}', 'VSCODE_HANDLES_UNCAUGHT_ERRORS': 'true', 'XDG_SESSION_TYPE': 'wayland', 'DEBUG': 'release', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'INPUT_METHOD': 'fcitx', 'HOME': '/home/wangjh', 'CHROME_DESKTOP': 'code.desktop', 'DESKTOP_SESSION': 'ubuntu', 'VSCODE_IPC_HOOK': '/run/user/1000/vscode-deaf30ac-1.11-main.sock', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/code.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SDL_IM_MODULE': 'fcitx', 'PAGER': 'cat', 'MANAGERPID': '2405', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '2679', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': '', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '3999', 'VSCODE_CRASH_REPORTER_PROCESS_TYPE': 'extensionHost', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'WAYLAND_DISPLAY': 'wayland-0', 'APPLICATION_INSIGHTS_NO_STATSBEAT': 'true', 'ROS_DISTRO': 'jazzy', 'GTK_IM_MODULE': 'fcitx', 'LOGNAME': 'wangjh', 'JOURNAL_STREAM': '9:30130', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'RUST_LOG': 'warn', 'USERNAME': 'wangjh', 'TERM': 'dumb', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'FC_FONTATIONS': '1', 'PATH': '/home/wangjh/.local/bin:/home/wangjh/.codex/tmp/arg0/codex-arg0yRN4pa:/home/wangjh/.local/bin:/opt/ros/jazzy/bin:/home/wangjh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wangjh/.vscode/extensions/openai.chatgpt-26.506.21252-linux-x64/bin/linux-x86_64', 'SESSION_MANAGER': 'local/originflow:@/tmp/.ICE-unix/2627,unix/originflow:/tmp/.ICE-unix/2627', 'INVOCATION_ID': 'd82bf12ee7cd4e5188588bf9d940393b', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'wayland', 'DISPLAY': ':0', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'C.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=fcitx', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.FM41O3', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'ELECTRON_RUN_AS_NODE': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '019e0610-b97c-7611-a40a-311839aba80a', 'GJS_DEBUG_OUTPUT': 'stderr', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'fcitx', 'PWD': '/home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration', 'LC_ALL': 'C.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'VSCODE_CODE_CACHE_PATH': '/home/wangjh/.config/Code/CachedData/8b640eef5a6c6089c029249d48efa5c99adf7d51', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'QTWEBENGINE_DICTIONARIES_PATH': '/usr/share/hunspell-bdic/', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy', 'VSCODE_PID': '3999'}), 'shell': False}
+[0.028232] (cube_imu_calibration) StdoutLine: {'line': b'-- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)\n'}
+[0.099999] (-) TimerEvent: {}
+[0.130602] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rclcpp: 28.1.18 (/opt/ros/jazzy/share/rclcpp/cmake)\n'}
+[0.150012] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)\n'}
+[0.155852] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)\n'}
+[0.163261] (cube_imu_calibration) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.173675] (cube_imu_calibration) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.200114] (-) TimerEvent: {}
+[0.219511] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)\n'}
+[0.220285] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.262309] (cube_imu_calibration) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[0.300332] (-) TimerEvent: {}
+[0.301748] (cube_imu_calibration) StdoutLine: {'line': b'-- Found sensor_msgs: 5.3.7 (/opt/ros/jazzy/share/sensor_msgs/cmake)\n'}
+[0.336662] (cube_imu_calibration) StdoutLine: {'line': b'-- Found std_srvs: 5.3.7 (/opt/ros/jazzy/share/std_srvs/cmake)\n'}
+[0.347159] (cube_imu_calibration) StdoutLine: {'line': b'-- Found tf2: 0.36.20 (/opt/ros/jazzy/share/tf2/cmake)\n'}
+[0.349467] (cube_imu_calibration) StdoutLine: {'line': b'-- Found tf2_ros: 0.36.20 (/opt/ros/jazzy/share/tf2_ros/cmake)\n'}
+[0.400456] (-) TimerEvent: {}
+[0.423995] (cube_imu_calibration) StdoutLine: {'line': b'-- Found cv_bridge: 4.1.0 (/opt/ros/jazzy/share/cv_bridge/cmake)\n'}
+[0.430317] (cube_imu_calibration) StdoutLine: {'line': b'-- Found image_transport: 5.1.7 (/opt/ros/jazzy/share/image_transport/cmake)\n'}
+[0.433834] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rosbag2_cpp: 0.26.10 (/opt/ros/jazzy/share/rosbag2_cpp/cmake)\n'}
+[0.439348] (cube_imu_calibration) StdoutLine: {'line': b"-- Setting yaml-cpp_DIR to: '/opt/ros/jazzy/share/yaml_cpp_vendor/cmake/../../../opt/yaml_cpp_vendor/share/cmake/yaml-cpp'\n"}
+[0.440974] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)\n'}
+[0.447352] (cube_imu_calibration) StdoutLine: {'line': b'-- Found rosidl_adapter: 4.6.7 (/opt/ros/jazzy/share/rosidl_adapter/cmake)\n'}
+[0.500631] (-) TimerEvent: {}
+[0.600771] (-) TimerEvent: {}
+[0.647505] (cube_imu_calibration) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)\n'}
+[0.700852] (-) TimerEvent: {}
+[0.801086] (-) TimerEvent: {}
+[0.835784] (cube_imu_calibration) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.901175] (-) TimerEvent: {}
+[0.914085] (cube_imu_calibration) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.914943] (cube_imu_calibration) StdoutLine: {'line': b'-- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)\n'}
+[1.001393] (-) TimerEvent: {}
+[1.092148] (cube_imu_calibration) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed \n'}
+[1.101478] (-) TimerEvent: {}
+[1.146326] (cube_imu_calibration) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter \n'}
+[1.153083] (cube_imu_calibration) StdoutLine: {'line': b'-- Configuring done (1.1s)\n'}
+[1.190335] (cube_imu_calibration) StdoutLine: {'line': b'-- Generating done (0.0s)\n'}
+[1.201626] (-) TimerEvent: {}
+[1.209896] (cube_imu_calibration) StdoutLine: {'line': b'-- Build files have been written to: /home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration\n'}
+[1.263228] (cube_imu_calibration) StdoutLine: {'line': b'[  2%] Built target cube_imu_calibration__rosidl_generator_type_description\n'}
+[1.263629] (cube_imu_calibration) StdoutLine: {'line': b'[  4%] Building CXX object CMakeFiles/simulated_sensor_node.dir/src/simulated_sensor_node.cpp.o\n'}
+[1.264177] (cube_imu_calibration) StdoutLine: {'line': b'[  7%] Built target cube_imu_calibration__rs\n'}
+[1.270253] (cube_imu_calibration) StdoutLine: {'line': b'[  7%] Built target ament_cmake_python_copy_cube_imu_calibration\n'}
+[1.271546] (cube_imu_calibration) StdoutLine: {'line': b'[ 12%] Built target data_recorder_node\n'}
+[1.279469] (cube_imu_calibration) StdoutLine: {'line': b'[ 14%] Built target cube_imu_calibration__cpp\n'}
+[1.280878] (cube_imu_calibration) StdoutLine: {'line': b'[ 26%] Built target cube_imu_calibration__rosidl_generator_c\n'}
+[1.300068] (cube_imu_calibration) StdoutLine: {'line': b'[ 60%] Built target cube_imu_calibration__rosidl_typesupport_fastrtps_cpp\n'}
+[1.300522] (cube_imu_calibration) StdoutLine: {'line': b'[ 60%] Built target cube_imu_calibration__rosidl_typesupport_c\n'}
+[1.300584] (cube_imu_calibration) StdoutLine: {'line': b'[ 60%] Built target cube_imu_calibration__rosidl_typesupport_introspection_c\n'}
+[1.300639] (cube_imu_calibration) StdoutLine: {'line': b'[ 63%] Built target cube_imu_calibration__rosidl_typesupport_fastrtps_c\n'}
+[1.300689] (cube_imu_calibration) StdoutLine: {'line': b'[ 63%] Built target cube_imu_calibration__rosidl_typesupport_cpp\n'}
+[1.300738] (cube_imu_calibration) StdoutLine: {'line': b'[ 70%] Built target cube_imu_calibration__rosidl_typesupport_introspection_cpp\n'}
+[1.301670] (-) TimerEvent: {}
+[1.316979] (cube_imu_calibration) StdoutLine: {'line': b'[ 70%] Built target cube_imu_calibration\n'}
+[1.324307] (cube_imu_calibration) StdoutLine: {'line': b'[ 75%] Built target apriltag_pose_node\n'}
+[1.332640] (cube_imu_calibration) StdoutLine: {'line': b'[ 78%] Built target cube_imu_calibration__py\n'}
+[1.349408] (cube_imu_calibration) StdoutLine: {'line': b'[ 82%] Built target cube_imu_calibration__rosidl_generator_py\n'}
+[1.367511] (cube_imu_calibration) StdoutLine: {'line': b'[ 97%] Built target cube_imu_calibration_s__rosidl_typesupport_introspection_c\n'}
+[1.367691] (cube_imu_calibration) StdoutLine: {'line': b'[ 97%] Built target cube_imu_calibration_s__rosidl_typesupport_fastrtps_c\n'}
+[1.367758] (cube_imu_calibration) StdoutLine: {'line': b'[ 97%] Built target cube_imu_calibration_s__rosidl_typesupport_c\n'}
+[1.401769] (-) TimerEvent: {}
+[1.404922] (cube_imu_calibration) StdoutLine: {'line': b'running egg_info\n'}
+[1.413208] (cube_imu_calibration) StdoutLine: {'line': b'writing cube_imu_calibration.egg-info/PKG-INFO\n'}
+[1.413345] (cube_imu_calibration) StdoutLine: {'line': b'writing dependency_links to cube_imu_calibration.egg-info/dependency_links.txt\n'}
+[1.413385] (cube_imu_calibration) StdoutLine: {'line': b'writing top-level names to cube_imu_calibration.egg-info/top_level.txt\n'}
+[1.437507] (cube_imu_calibration) StdoutLine: {'line': b"reading manifest file 'cube_imu_calibration.egg-info/SOURCES.txt'\n"}
+[1.437917] (cube_imu_calibration) StdoutLine: {'line': b"writing manifest file 'cube_imu_calibration.egg-info/SOURCES.txt'\n"}
+[1.454873] (cube_imu_calibration) StdoutLine: {'line': b'[ 97%] Built target ament_cmake_python_build_cube_imu_calibration_egg\n'}
+[1.501934] (-) TimerEvent: {}
+[1.602166] (-) TimerEvent: {}
+[1.702422] (-) TimerEvent: {}
+[1.802600] (-) TimerEvent: {}
+[1.902808] (-) TimerEvent: {}
+[2.003029] (-) TimerEvent: {}
+[2.103324] (-) TimerEvent: {}
+[2.203495] (-) TimerEvent: {}
+[2.303641] (-) TimerEvent: {}
+[2.403797] (-) TimerEvent: {}
+[2.504029] (-) TimerEvent: {}
+[2.604284] (-) TimerEvent: {}
+[2.704451] (-) TimerEvent: {}
+[2.804607] (-) TimerEvent: {}
+[2.904751] (-) TimerEvent: {}
+[3.004901] (-) TimerEvent: {}
+[3.105152] (-) TimerEvent: {}
+[3.205391] (-) TimerEvent: {}
+[3.305615] (-) TimerEvent: {}
+[3.405933] (-) TimerEvent: {}
+[3.506144] (-) TimerEvent: {}
+[3.606324] (-) TimerEvent: {}
+[3.706471] (-) TimerEvent: {}
+[3.806751] (-) TimerEvent: {}
+[3.906981] (-) TimerEvent: {}
+[4.007224] (-) TimerEvent: {}
+[4.107483] (-) TimerEvent: {}
+[4.207738] (-) TimerEvent: {}
+[4.307982] (-) TimerEvent: {}
+[4.408232] (-) TimerEvent: {}
+[4.508499] (-) TimerEvent: {}
+[4.608734] (-) TimerEvent: {}
+[4.709021] (-) TimerEvent: {}
+[4.809313] (-) TimerEvent: {}
+[4.909539] (-) TimerEvent: {}
+[5.009689] (-) TimerEvent: {}
+[5.109827] (-) TimerEvent: {}
+[5.209983] (-) TimerEvent: {}
+[5.310139] (-) TimerEvent: {}
+[5.410392] (-) TimerEvent: {}
+[5.510543] (-) TimerEvent: {}
+[5.610688] (-) TimerEvent: {}
+[5.710894] (-) TimerEvent: {}
+[5.811168] (-) TimerEvent: {}
+[5.911390] (-) TimerEvent: {}
+[6.011543] (-) TimerEvent: {}
+[6.111680] (-) TimerEvent: {}
+[6.211911] (-) TimerEvent: {}
+[6.312154] (-) TimerEvent: {}
+[6.412460] (-) TimerEvent: {}
+[6.512685] (-) TimerEvent: {}
+[6.612848] (-) TimerEvent: {}
+[6.713060] (-) TimerEvent: {}
+[6.741853] (cube_imu_calibration) StdoutLine: {'line': b'[100%] Linking CXX executable simulated_sensor_node\n'}
+[6.813269] (-) TimerEvent: {}
+[6.913532] (-) TimerEvent: {}
+[6.937589] (cube_imu_calibration) StdoutLine: {'line': b'[100%] Built target simulated_sensor_node\n'}
+[6.946391] (cube_imu_calibration) CommandEnded: {'returncode': 0}
+[6.947080] (cube_imu_calibration) JobProgress: {'identifier': 'cube_imu_calibration', 'progress': 'install'}
+[6.951870] (cube_imu_calibration) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration'], 'cwd': '/home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration', 'env': OrderedDict({'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'VSCODE_CWD': '/home/wangjh', 'VSCODE_ESM_ENTRYPOINT': 'vs/workbench/api/node/extensionHostProcess', 'CODEX_CI': '1', 'USER': 'wangjh', 'CODEX_INTERNAL_ORIGINATOR_OVERRIDE': 'codex_vscode', 'VSCODE_NLS_CONFIG': '{"userLocale":"zh-cn","osLocale":"zh-cn","resolvedLanguage":"zh-cn","defaultMessagesFile":"/usr/share/code/resources/app/out/nls.messages.json","languagePack":{"translationsConfigFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/tcf.json","messagesFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/8b640eef5a6c6089c029249d48efa5c99adf7d51/nls.messages.json","corruptMarkerFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/corrupted.info"},"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"b912e1cc94c8380c6bb426bdce2c540f.zh-cn","_languagePackSupport":true,"_translationsConfigFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/tcf.json","_cacheRoot":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn","_resolvedLanguagePackCoreLocation":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/8b640eef5a6c6089c029249d48efa5c99adf7d51","_corruptedFile":"/home/wangjh/.config/Code/clp/b912e1cc94c8380c6bb426bdce2c540f.zh-cn/corrupted.info"}', 'VSCODE_HANDLES_UNCAUGHT_ERRORS': 'true', 'XDG_SESSION_TYPE': 'wayland', 'DEBUG': 'release', 'CLUTTER_DISABLE_MIPMAPPED_TEXT': '1', 'SHLVL': '0', 'LD_LIBRARY_PATH': '/opt/ros/jazzy/opt/rviz_ogre_vendor/lib:/opt/ros/jazzy/lib/x86_64-linux-gnu:/opt/ros/jazzy/opt/gz_math_vendor/lib:/opt/ros/jazzy/opt/gz_utils_vendor/lib:/opt/ros/jazzy/opt/gz_cmake_vendor/lib:/opt/ros/jazzy/lib', 'INPUT_METHOD': 'fcitx', 'HOME': '/home/wangjh', 'CHROME_DESKTOP': 'code.desktop', 'DESKTOP_SESSION': 'ubuntu', 'VSCODE_IPC_HOOK': '/run/user/1000/vscode-deaf30ac-1.11-main.sock', 'GIO_LAUNCHED_DESKTOP_FILE': '/usr/share/applications/code.desktop', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'SDL_IM_MODULE': 'fcitx', 'PAGER': 'cat', 'MANAGERPID': '2405', 'LC_CTYPE': 'C.UTF-8', 'SYSTEMD_EXEC_PID': '2679', 'GSM_SKIP_SSH_AGENT_WORKAROUND': 'true', 'NO_COLOR': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': '', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '3999', 'VSCODE_CRASH_REPORTER_PROCESS_TYPE': 'extensionHost', 'DEBUGINFOD_URLS': 'https://debuginfod.ubuntu.com', 'WAYLAND_DISPLAY': 'wayland-0', 'APPLICATION_INSIGHTS_NO_STATSBEAT': 'true', 'ROS_DISTRO': 'jazzy', 'GTK_IM_MODULE': 'fcitx', 'LOGNAME': 'wangjh', 'JOURNAL_STREAM': '9:30130', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'MEMORY_PRESSURE_WATCH': '/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/session.slice/org.gnome.Shell@wayland.service/memory.pressure', 'XDG_SESSION_CLASS': 'user', 'RUST_LOG': 'warn', 'USERNAME': 'wangjh', 'TERM': 'dumb', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'FC_FONTATIONS': '1', 'PATH': '/home/wangjh/.local/bin:/home/wangjh/.codex/tmp/arg0/codex-arg0yRN4pa:/home/wangjh/.local/bin:/opt/ros/jazzy/bin:/home/wangjh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/wangjh/.vscode/extensions/openai.chatgpt-26.506.21252-linux-x64/bin/linux-x86_64', 'SESSION_MANAGER': 'local/originflow:@/tmp/.ICE-unix/2627,unix/originflow:/tmp/.ICE-unix/2627', 'INVOCATION_ID': 'd82bf12ee7cd4e5188588bf9d940393b', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'wayland', 'DISPLAY': ':0', 'CODEX_SANDBOX_NETWORK_DISABLED': '1', 'LANG': 'C.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=fcitx', 'GH_PAGER': 'cat', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.FM41O3', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/jazzy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'ELECTRON_RUN_AS_NODE': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'CODEX_THREAD_ID': '019e0610-b97c-7611-a40a-311839aba80a', 'GJS_DEBUG_OUTPUT': 'stderr', 'ROS_AUTOMATIC_DISCOVERY_RANGE': 'SUBNET', 'GIT_PAGER': 'cat', 'QT_IM_MODULE': 'fcitx', 'PWD': '/home/wangjh/code/06imu_cube_calib /build/cube_imu_calibration', 'LC_ALL': 'C.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'VSCODE_CODE_CACHE_PATH': '/home/wangjh/.config/Code/CachedData/8b640eef5a6c6089c029249d48efa5c99adf7d51', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'QTWEBENGINE_DICTIONARIES_PATH': '/usr/share/hunspell-bdic/', 'PYTHONPATH': '/opt/ros/jazzy/lib/python3.12/site-packages', 'COLCON': '1', 'MEMORY_PRESSURE_WRITE': 'c29tZSAyMDAwMDAgMjAwMDAwMAA=', 'CMAKE_PREFIX_PATH': '/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy', 'VSCODE_PID': '3999'}), 'shell': False}
+[6.956852] (cube_imu_calibration) StdoutLine: {'line': b'-- Install configuration: "Release"\n'}
+[6.956946] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/ament_index/resource_index/rosidl_interfaces/cube_imu_calibration\n'}
+[6.956979] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePose.json\n'}
+[6.957008] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration\n'}
+[6.957037] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg\n'}
+[6.957126] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail\n'}
+[6.957155] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.c\n'}
+[6.957184] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__functions.h\n'}
+[6.957214] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__description.c\n'}
+[6.957240] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__struct.h\n'}
+[6.957267] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.h\n'}
+[6.957293] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__functions.c\n'}
+[6.957318] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_generator_c__visibility_control.h\n'}
+[6.957343] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/cube_pose.h\n'}
+[6.957369] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/library_path.sh\n'}
+[6.957394] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/library_path.dsv\n'}
+[6.957419] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_generator_c.so\n'}
+[6.957447] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration\n'}
+[6.957471] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg\n'}
+[6.957498] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail\n'}
+[6.957523] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_fastrtps_c.h\n'}
+[6.957547] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[6.957839] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_fastrtps_c.so\n'}
+[6.957924] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration\n'}
+[6.958030] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg\n'}
+[6.958061] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail\n'}
+[6.958102] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__struct.hpp\n'}
+[6.958135] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__traits.hpp\n'}
+[6.958168] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__builder.hpp\n'}
+[6.958235] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.hpp\n'}
+[6.958263] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/cube_pose.hpp\n'}
+[6.958290] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[6.958319] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration\n'}
+[6.958348] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg\n'}
+[6.958376] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail\n'}
+[6.958404] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/dds_fastrtps\n'}
+[6.958432] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[6.958460] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[6.958502] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_fastrtps_cpp.so\n'}
+[6.958530] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration\n'}
+[6.958558] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg\n'}
+[6.958585] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[6.958612] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail\n'}
+[6.958639] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.c\n'}
+[6.958713] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_introspection_c.h\n'}
+[6.958742] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_introspection_c.so\n'}
+[6.958767] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_c.so\n'}
+[6.958793] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration\n'}
+[6.958820] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg\n'}
+[6.958846] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail\n'}
+[6.958871] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_introspection_cpp.hpp\n'}
+[6.958896] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.cpp\n'}
+[6.958920] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_introspection_cpp.so\n'}
+[6.958944] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_cpp.so\n'}
+[6.958969] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/pythonpath.sh\n'}
+[6.958997] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/pythonpath.dsv\n'}
+[6.959024] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info\n'}
+[6.959050] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/dependency_links.txt\n'}
+[6.959077] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/SOURCES.txt\n'}
+[6.959102] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/top_level.txt\n'}
+[6.959126] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/PKG-INFO\n'}
+[6.959150] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration\n'}
+[6.959174] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/_cube_imu_calibration_s.ep.rosidl_typesupport_c.c\n'}
+[6.959201] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/_cube_imu_calibration_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[6.959225] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/__init__.py\n'}
+[6.959250] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_fastrtps_c.so\n'}
+[6.959275] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg\n'}
+[6.959300] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_cube_pose.py\n'}
+[6.959324] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_cube_pose_s.c\n'}
+[6.959348] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/__init__.py\n'}
+[6.959372] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_introspection_c.so\n'}
+[6.959398] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_c.so\n'}
+[6.959423] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/_cube_imu_calibration_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[6.979366] (cube_imu_calibration) StdoutLine: {'line': b"Listing '/home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration'...\n"}
+[6.979464] (cube_imu_calibration) StdoutLine: {'line': b"Compiling '/home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/__init__.py'...\n"}
+[6.979501] (cube_imu_calibration) StdoutLine: {'line': b"Listing '/home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg'...\n"}
+[6.982546] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_fastrtps_c.so\n'}
+[6.983040] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_introspection_c.so\n'}
+[6.983143] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_c.so\n'}
+[6.983205] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_generator_py.so\n'}
+[6.983253] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/ament_index/resource_index/rust_packages/cube_imu_calibration\n'}
+[6.983301] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust\n'}
+[6.983338] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/Cargo.toml\n'}
+[6.983374] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/build.rs\n'}
+[6.983408] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/src\n'}
+[6.983442] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/src/lib.rs\n'}
+[6.983474] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/src/msg\n'}
+[6.983506] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/src/msg/rmw.rs\n'}
+[6.983539] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/rust/src/msg.rs\n'}
+[6.983571] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePose.idl\n'}
+[6.983603] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePose.msg\n'}
+[6.983840] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/cube_imu_calibration/data_recorder_node\n'}
+[6.983984] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/cube_imu_calibration/apriltag_pose_node\n'}
+[6.984074] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/cube_imu_calibration/simulated_sensor_node\n'}
+[6.984144] (cube_imu_calibration) StdoutLine: {'line': b'-- Set non-toolchain portion of runtime path of "/home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/cube_imu_calibration/simulated_sensor_node" to ""\n'}
+[6.984222] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/lib/cube_imu_calibration/solve_extrinsics.py\n'}
+[6.984286] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/launch\n'}
+[6.984358] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/launch/sim_demo_launch.py\n'}
+[6.984419] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/launch/calibration_launch.py\n'}
+[6.984490] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/config\n'}
+[6.984534] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/config/apriltag_params.yaml\n'}
+[6.984611] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/README_JAZZY.txt\n'}
+[6.984652] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/ament_index/resource_index/package_run_dependencies/cube_imu_calibration\n'}
+[6.984729] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/ament_index/resource_index/parent_prefix_path/cube_imu_calibration\n'}
+[6.984796] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/ament_prefix_path.sh\n'}
+[6.984866] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/ament_prefix_path.dsv\n'}
+[6.984933] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/path.sh\n'}
+[6.984997] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/environment/path.dsv\n'}
+[6.985031] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/local_setup.bash\n'}
+[6.985062] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/local_setup.sh\n'}
+[6.985093] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/local_setup.zsh\n'}
+[6.985125] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/local_setup.dsv\n'}
+[6.985157] (cube_imu_calibration) StdoutLine: {'line': b'-- Installing: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/package.dsv\n'}
+[6.985195] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/ament_index/resource_index/packages/cube_imu_calibration\n'}
+[6.985227] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_cExport.cmake\n'}
+[6.985260] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_cExport-release.cmake\n'}
+[6.985297] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[6.985331] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cExport-release.cmake\n'}
+[6.985362] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_cppExport.cmake\n'}
+[6.985393] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[6.985424] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cppExport-release.cmake\n'}
+[6.985454] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cExport.cmake\n'}
+[6.985485] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cExport-release.cmake\n'}
+[6.985515] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cExport.cmake\n'}
+[6.985545] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cExport-release.cmake\n'}
+[6.985574] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[6.985604] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cppExport-release.cmake\n'}
+[6.985633] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cppExport.cmake\n'}
+[6.985663] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cppExport-release.cmake\n'}
+[6.985691] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_pyExport.cmake\n'}
+[6.985721] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_pyExport-release.cmake\n'}
+[6.985751] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/rosidl_cmake-extras.cmake\n'}
+[6.985781] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[6.985827] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[6.985901] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[6.986075] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[6.986246] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[6.986340] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[6.986382] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibrationConfig.cmake\n'}
+[6.986422] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibrationConfig-version.cmake\n'}
+[6.986603] (cube_imu_calibration) StdoutLine: {'line': b'-- Up-to-date: /home/wangjh/code/06imu_cube_calib /install/cube_imu_calibration/share/cube_imu_calibration/package.xml\n'}
+[6.986646] (cube_imu_calibration) CommandEnded: {'returncode': 0}
+[6.996766] (cube_imu_calibration) JobEnded: {'identifier': 'cube_imu_calibration', 'rc': 0}
+[6.997018] (-) EventReactorShutdown: {}

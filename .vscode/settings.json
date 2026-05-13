@@ -1,0 +1,4 @@
+{
+    "cmake.sourceDirectory": "${workspaceFolder}/cube_imu_calibration",
+    "cmake.configureOnOpen": false
+}

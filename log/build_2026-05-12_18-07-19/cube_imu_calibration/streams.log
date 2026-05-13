@@ -1,0 +1,257 @@
+[0.005s] Invoking command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration -- -j24 -l24
+[0.021s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.082s] -- Found rclcpp: 28.1.18 (/opt/ros/jazzy/share/rclcpp/cmake)
+[0.098s] -- Found rosidl_generator_c: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_c/cmake)
+[0.103s] -- Found rosidl_generator_cpp: 4.6.7 (/opt/ros/jazzy/share/rosidl_generator_cpp/cmake)
+[0.109s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.117s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.148s] -- Found rmw_implementation_cmake: 7.3.3 (/opt/ros/jazzy/share/rmw_implementation_cmake/cmake)
+[0.148s] -- Found rmw_fastrtps_cpp: 8.4.3 (/opt/ros/jazzy/share/rmw_fastrtps_cpp/cmake)
+[0.181s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.211s] -- Found sensor_msgs: 5.3.7 (/opt/ros/jazzy/share/sensor_msgs/cmake)
+[0.237s] -- Found std_srvs: 5.3.7 (/opt/ros/jazzy/share/std_srvs/cmake)
+[0.244s] -- Found cv_bridge: 4.1.0 (/opt/ros/jazzy/share/cv_bridge/cmake)
+[0.249s] -- Found rosbag2_cpp: 0.26.10 (/opt/ros/jazzy/share/rosbag2_cpp/cmake)
+[0.255s] -- Setting yaml-cpp_DIR to: '/opt/ros/jazzy/share/yaml_cpp_vendor/cmake/../../../opt/yaml_cpp_vendor/share/cmake/yaml-cpp'
+[0.256s] -- Found rosidl_default_generators: 1.6.0 (/opt/ros/jazzy/share/rosidl_default_generators/cmake)
+[0.261s] -- Found rosidl_adapter: 4.6.7 (/opt/ros/jazzy/share/rosidl_adapter/cmake)
+[0.433s] -- Found ament_cmake_ros: 0.12.0 (/opt/ros/jazzy/share/ament_cmake_ros/cmake)
+[0.597s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.662s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.663s] -- Found python_cmake_module: 0.11.1 (/opt/ros/jazzy/share/python_cmake_module/cmake)
+[0.804s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter Development NumPy Development.Module Development.Embed 
+[0.849s] -- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+[0.856s] -- Configuring done (0.8s)
+[0.897s] -- Generating done (0.0s)
+[0.912s] -- Build files have been written to: /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration
+[0.937s] [  1%] Built target cube_imu_calibration__rosidl_generator_type_description
+[0.937s] [  3%] Built target cube_imu_calibration__rs
+[0.943s] [  3%] Built target ament_cmake_python_copy_cube_imu_calibration
+[0.944s] [  6%] Built target simulated_sensor_node
+[0.950s] [  8%] Built target cube_imu_calibration__cpp
+[0.953s] [ 25%] Built target cube_imu_calibration__rosidl_generator_c
+[0.970s] [ 41%] Built target cube_imu_calibration__rosidl_typesupport_c
+[0.970s] [ 41%] Built target cube_imu_calibration__rosidl_typesupport_introspection_c
+[0.972s] [ 59%] Built target cube_imu_calibration__rosidl_typesupport_introspection_cpp
+[0.972s] [ 59%] Built target cube_imu_calibration__rosidl_typesupport_cpp
+[0.972s] [ 66%] Built target cube_imu_calibration__rosidl_typesupport_fastrtps_c
+[0.972s] [ 74%] Built target cube_imu_calibration__rosidl_typesupport_fastrtps_cpp
+[0.985s] [ 74%] Built target cube_imu_calibration
+[0.992s] [ 77%] Built target data_recorder_node
+[0.995s] [ 79%] Building CXX object CMakeFiles/real_sensor_node.dir/src/real_sensor_node.cpp.o
+[0.996s] [ 80%] Building CXX object CMakeFiles/real_sensor_node.dir/src/serial_imu_reader.cpp.o
+[0.999s] [ 82%] Built target cube_imu_calibration__py
+[1.016s] [ 88%] Built target cube_imu_calibration__rosidl_generator_py
+[1.034s] [ 98%] Built target cube_imu_calibration_s__rosidl_typesupport_fastrtps_c
+[1.034s] [ 98%] Built target cube_imu_calibration_s__rosidl_typesupport_c
+[1.034s] [ 98%] Built target cube_imu_calibration_s__rosidl_typesupport_introspection_c
+[1.084s] running egg_info
+[1.094s] writing cube_imu_calibration.egg-info/PKG-INFO
+[1.094s] writing dependency_links to cube_imu_calibration.egg-info/dependency_links.txt
+[1.095s] writing top-level names to cube_imu_calibration.egg-info/top_level.txt
+[1.123s] reading manifest file 'cube_imu_calibration.egg-info/SOURCES.txt'
+[1.123s] writing manifest file 'cube_imu_calibration.egg-info/SOURCES.txt'
+[1.146s] [ 98%] Built target ament_cmake_python_build_cube_imu_calibration_egg
+[12.602s] [100%] Linking CXX executable real_sensor_node
+[12.885s] [100%] Built target real_sensor_node
+[12.892s] Invoked command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration -- -j24 -l24
+[12.897s] Invoking command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration
+[12.902s] -- Install configuration: "Release"
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/ament_index/resource_index/rosidl_interfaces/cube_imu_calibration
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePose.json
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePoseStatus.json
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/RecorderStatus.json
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg
+[12.902s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__struct.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__functions.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__functions.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__type_support.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__description.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__description.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__type_support.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__struct.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__struct.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__functions.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__type_support.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__functions.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__description.c
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__type_support.h
+[12.903s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__functions.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__functions.c
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_generator_c__visibility_control.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/cube_pose.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/recorder_status.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/cube_pose_status.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/library_path.sh
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/library_path.dsv
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_generator_c.so
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__rosidl_typesupport_fastrtps_c.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__rosidl_typesupport_fastrtps_c.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_fastrtps_c.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_fastrtps_c.so
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail
+[12.904s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__struct.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__traits.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__type_support.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__builder.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__traits.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__traits.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__builder.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__type_support.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__struct.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__struct.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__builder.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/cube_pose.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/recorder_status.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/cube_pose_status.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_generator_cpp__visibility_control.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/dds_fastrtps
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__rosidl_typesupport_fastrtps_cpp.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_fastrtps_cpp.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__rosidl_typesupport_fastrtps_cpp.hpp
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_fastrtps_cpp.so
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail
+[12.905s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__rosidl_typesupport_introspection_c.h
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.c
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__type_support.c
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_introspection_c.h
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__type_support.c
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__rosidl_typesupport_introspection_c.h
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_introspection_c.so
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_c.so
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__rosidl_typesupport_introspection_cpp.hpp
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__rosidl_typesupport_introspection_cpp.hpp
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__rosidl_typesupport_introspection_cpp.hpp
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose__type_support.cpp
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/recorder_status__type_support.cpp
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/include/cube_imu_calibration/cube_imu_calibration/msg/detail/cube_pose_status__type_support.cpp
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_introspection_cpp.so
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_typesupport_cpp.so
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/pythonpath.sh
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/pythonpath.dsv
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info
+[12.906s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/dependency_links.txt
+[12.906s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/SOURCES.txt
+[12.906s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/top_level.txt
+[12.906s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration-0.1.0-py3.12.egg-info/PKG-INFO
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/_cube_imu_calibration_s.ep.rosidl_typesupport_c.c
+[12.906s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/_cube_imu_calibration_s.ep.rosidl_typesupport_introspection_c.c
+[12.907s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/__init__.py
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_fastrtps_c.so
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_cube_pose.py
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_cube_pose_s.c
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/__init__.py
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_recorder_status.py
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_recorder_status_s.c
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_cube_pose_status.py
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg/_cube_pose_status_s.c
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_introspection_c.so
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_c.so
+[12.907s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/_cube_imu_calibration_s.ep.rosidl_typesupport_fastrtps_c.c
+[12.926s] Listing '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration'...
+[12.926s] Compiling '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/__init__.py'...
+[12.926s] Listing '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/msg'...
+[12.929s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_fastrtps_c.so
+[12.929s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_introspection_c.so
+[12.929s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages/cube_imu_calibration/cube_imu_calibration_s__rosidl_typesupport_c.so
+[12.929s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/libcube_imu_calibration__rosidl_generator_py.so
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/ament_index/resource_index/rust_packages/cube_imu_calibration
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/Cargo.toml
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/build.rs
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/src
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/src/lib.rs
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/src/msg
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/src/msg/rmw.rs
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/rust/src/msg.rs
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePose.idl
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePoseStatus.idl
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/RecorderStatus.idl
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePose.msg
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/CubePoseStatus.msg
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/msg/RecorderStatus.msg
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/data_recorder_node
+[12.930s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/simulated_sensor_node
+[12.930s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/real_sensor_node
+[12.931s] -- Set non-toolchain portion of runtime path of "/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/real_sensor_node" to "/home/wangjh/code/01历史代码/00历史代码/orbslam3_light/hardware/camera/orbbec_gemini_335/linux/third_party/pyorbbecsdk/sdk/lib/linux_x64"
+[12.931s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/calibration_gui.py
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/kalibr_workflow_check.py
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/solve_extrinsics.py
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/cube_imu_calibration/pose_imu_calibrator.py
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/sim_demo_launch.py
+[12.932s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/gui_launch.py
+[12.932s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/runtime_launch.py
+[12.932s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/calibration_launch.py
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/__pycache__
+[12.932s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/__pycache__/runtime_launch.cpython-312.pyc
+[12.932s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/__pycache__/gui_launch.cpython-312.pyc
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/__pycache__/calibration_launch.cpython-312.pyc
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/__pycache__/raw_capture_launch.cpython-312.pyc
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/launch/__pycache__/sim_demo_launch.cpython-312.pyc
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/config
+[12.932s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/config/apriltag_params.yaml
+[12.932s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/README_JAZZY.txt
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/ament_index/resource_index/package_run_dependencies/cube_imu_calibration
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/ament_index/resource_index/parent_prefix_path/cube_imu_calibration
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/ament_prefix_path.sh
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/ament_prefix_path.dsv
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/path.sh
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/environment/path.dsv
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/local_setup.bash
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/local_setup.sh
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/local_setup.zsh
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/local_setup.dsv
+[12.933s] -- Installing: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.dsv
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/ament_index/resource_index/packages/cube_imu_calibration
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_cExport.cmake
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_cExport-release.cmake
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cExport.cmake
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cExport-release.cmake
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_cppExport.cmake
+[12.933s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cppExport.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_typesupport_fastrtps_cppExport-release.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cExport.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cExport-release.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cExport.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cExport-release.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cppExport.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_introspection_cppExport-release.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cppExport.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibration__rosidl_typesupport_cppExport-release.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_pyExport.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/export_cube_imu_calibration__rosidl_generator_pyExport-release.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/rosidl_cmake-extras.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_dependencies-extras.cmake
+[12.934s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_include_directories-extras.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_libraries-extras.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/ament_cmake_export_targets-extras.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibrationConfig.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/cmake/cube_imu_calibrationConfig-version.cmake
+[12.935s] -- Up-to-date: /home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.xml
+[12.935s] Invoked command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration

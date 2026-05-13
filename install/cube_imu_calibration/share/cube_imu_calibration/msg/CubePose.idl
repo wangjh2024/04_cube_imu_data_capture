@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from cube_imu_calibration/msg/CubePose.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Quaternion.idl"
+#include "geometry_msgs/msg/Vector3.idl"
+#include "std_msgs/msg/Header.idl"
+
+module cube_imu_calibration {
+  module msg {
+    typedef double double__16[16];
+    struct CubePose {
+      std_msgs::msg::Header header;
+
+      @verbatim (language="comment", text=
+        "Pose of cube_link expressed in the configured camera frame.")
+      geometry_msgs::msg::Vector3 translation;
+
+      geometry_msgs::msg::Quaternion orientation;
+
+      @verbatim (language="comment", text=
+        "Row-major 4x4 homogeneous transform T_Cam_Cube.")
+      double__16 transform;
+    };
+  };
+};

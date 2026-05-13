@@ -1,0 +1,6 @@
+format: cube_imu_direct_dataset_v1
+image_dir: images
+image_timestamps: image_timestamps.csv
+imu_csv: imu.csv
+camera_info: camera_info.yaml
+pose_csv: tag_pose.csv

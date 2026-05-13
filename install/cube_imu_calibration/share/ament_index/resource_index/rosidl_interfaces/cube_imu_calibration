@@ -1,0 +1,6 @@
+msg/CubePose.idl
+msg/CubePose.msg
+msg/CubePoseStatus.idl
+msg/CubePoseStatus.msg
+msg/RecorderStatus.idl
+msg/RecorderStatus.msg

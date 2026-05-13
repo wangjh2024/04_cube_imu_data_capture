@@ -1,0 +1,1 @@
+cv_bridge:eigen:geometry_msgs:libopencv-dev:python3-numpy:python3-pyqt5:python3-yaml:rclcpp:rclpy:rosbag2_cpp:rosbag2_storage:rosbag2_storage_sqlite3:rosidl_default_runtime:sensor_msgs:std_msgs:std_srvs:tf2:tf2_ros

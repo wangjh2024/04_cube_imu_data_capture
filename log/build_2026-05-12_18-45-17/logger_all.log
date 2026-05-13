@@ -1,0 +1,213 @@
+[0.056s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'cube_imu_calibration', '--cmake-args', '-DCMAKE_BUILD_TYPE=Release']
+[0.056s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=24, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['cube_imu_calibration'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=['-DCMAKE_BUILD_TYPE=Release'], cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7d47d416b6e0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7d47d428fce0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7d47d428fce0>>)
+[0.076s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.076s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.076s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.076s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.076s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.076s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.076s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/wangjh/code/06imu_cube_calib'
+[0.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.076s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.077s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.077s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.077s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.077s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.077s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extensions ['ignore', 'ignore_ament_install']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'ignore'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'ignore_ament_install'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extensions ['colcon_pkg']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'colcon_pkg'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extensions ['colcon_meta']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'colcon_meta'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extensions ['ros']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'ros'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extensions ['cmake', 'python']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'cmake'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'python'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extensions ['python_setup_py']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(Log) by extension 'python_setup_py'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extensions ['ignore', 'ignore_ament_install']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extension 'ignore'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extension 'ignore_ament_install'
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extensions ['colcon_pkg']
+[0.092s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extension 'colcon_pkg'
+[0.093s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extensions ['colcon_meta']
+[0.093s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extension 'colcon_meta'
+[0.093s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extensions ['ros']
+[0.093s] Level 1:colcon.colcon_core.package_identification:_identify(cube_imu_calibration) by extension 'ros'
+[0.095s] DEBUG:colcon.colcon_core.package_identification:Package 'cube_imu_calibration' with type 'ros.ament_cmake' and name 'cube_imu_calibration'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extensions ['ignore', 'ignore_ament_install']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'ignore'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'ignore_ament_install'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extensions ['colcon_pkg']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'colcon_pkg'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extensions ['colcon_meta']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'colcon_meta'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extensions ['ros']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'ros'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extensions ['cmake', 'python']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'cmake'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'python'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extensions ['python_setup_py']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag) by extension 'python_setup_py'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extensions ['ignore', 'ignore_ament_install']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'ignore'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'ignore_ament_install'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extensions ['colcon_pkg']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'colcon_pkg'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extensions ['colcon_meta']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'colcon_meta'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extensions ['ros']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'ros'
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extensions ['cmake', 'python']
+[0.095s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'cmake'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'python'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extensions ['python_setup_py']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_174226) by extension 'python_setup_py'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extensions ['ignore', 'ignore_ament_install']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'ignore'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'ignore_ament_install'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extensions ['colcon_pkg']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'colcon_pkg'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extensions ['colcon_meta']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'colcon_meta'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extensions ['ros']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'ros'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extensions ['cmake', 'python']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'cmake'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'python'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extensions ['python_setup_py']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(output_bag_20260512_175337) by extension 'python_setup_py'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['ignore', 'ignore_ament_install']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'ignore'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'ignore_ament_install'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['colcon_pkg']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'colcon_pkg'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['colcon_meta']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'colcon_meta'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['ros']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'ros'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['cmake', 'python']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'cmake'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'python'
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extensions ['python_setup_py']
+[0.096s] Level 1:colcon.colcon_core.package_identification:_identify(scripts) by extension 'python_setup_py'
+[0.096s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.096s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.096s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.096s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.096s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.105s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.105s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.107s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 287 installed packages in /opt/ros/jazzy
+[0.107s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'cmake_args' from command line to '['-DCMAKE_BUILD_TYPE=Release']'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'cmake_target' from command line to 'None'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'cmake_clean_cache' from command line to 'False'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'cmake_clean_first' from command line to 'False'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'cmake_force_configure' from command line to 'False'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'ament_cmake_args' from command line to 'None'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'catkin_cmake_args' from command line to 'None'
+[0.125s] Level 5:colcon.colcon_core.verb:set package 'cube_imu_calibration' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.125s] DEBUG:colcon.colcon_core.verb:Building package 'cube_imu_calibration' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': ['-DCMAKE_BUILD_TYPE=Release'], 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration', 'merge_install': False, 'path': '/home/wangjh/code/06imu_cube_calib/cube_imu_calibration', 'symlink_install': False, 'test_result_base': None}
+[0.125s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.126s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.126s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/wangjh/code/06imu_cube_calib/cube_imu_calibration' with build type 'ament_cmake'
+[0.126s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/wangjh/code/06imu_cube_calib/cube_imu_calibration'
+[0.127s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.127s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.127s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.133s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration -- -j24 -l24
+[7.706s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --build /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration -- -j24 -l24
+[7.711s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration
+[7.747s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(cube_imu_calibration)
+[7.749s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake --install /home/wangjh/code/06imu_cube_calib/build/cube_imu_calibration
+[7.749s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration' for CMake module files
+[7.749s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration' for CMake config files
+[7.749s] Level 1:colcon.colcon_core.shell:create_environment_hook('cube_imu_calibration', 'cmake_prefix_path')
+[7.750s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/cmake_prefix_path.ps1'
+[7.750s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/cmake_prefix_path.dsv'
+[7.750s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/cmake_prefix_path.sh'
+[7.751s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib'
+[7.751s] Level 1:colcon.colcon_core.shell:create_environment_hook('cube_imu_calibration', 'ld_library_path_lib')
+[7.751s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/ld_library_path_lib.ps1'
+[7.751s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/ld_library_path_lib.dsv'
+[7.751s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/ld_library_path_lib.sh'
+[7.751s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/bin'
+[7.751s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/pkgconfig/cube_imu_calibration.pc'
+[7.752s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages'
+[7.752s] Level 1:colcon.colcon_core.shell:create_environment_hook('cube_imu_calibration', 'pythonpath')
+[7.752s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/pythonpath.ps1'
+[7.752s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/pythonpath.dsv'
+[7.752s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/pythonpath.sh'
+[7.752s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/bin'
+[7.752s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.ps1'
+[7.753s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.dsv'
+[7.753s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.sh'
+[7.754s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.bash'
+[7.754s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.zsh'
+[7.754s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/colcon-core/packages/cube_imu_calibration)
+[7.754s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(cube_imu_calibration)
+[7.754s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration' for CMake module files
+[7.755s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration' for CMake config files
+[7.755s] Level 1:colcon.colcon_core.shell:create_environment_hook('cube_imu_calibration', 'cmake_prefix_path')
+[7.755s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/cmake_prefix_path.ps1'
+[7.755s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/cmake_prefix_path.dsv'
+[7.755s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/cmake_prefix_path.sh'
+[7.756s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib'
+[7.756s] Level 1:colcon.colcon_core.shell:create_environment_hook('cube_imu_calibration', 'ld_library_path_lib')
+[7.756s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/ld_library_path_lib.ps1'
+[7.756s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/ld_library_path_lib.dsv'
+[7.756s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/ld_library_path_lib.sh'
+[7.756s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/bin'
+[7.756s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/pkgconfig/cube_imu_calibration.pc'
+[7.756s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/lib/python3.12/site-packages'
+[7.756s] Level 1:colcon.colcon_core.shell:create_environment_hook('cube_imu_calibration', 'pythonpath')
+[7.757s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/pythonpath.ps1'
+[7.757s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/pythonpath.dsv'
+[7.757s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/hook/pythonpath.sh'
+[7.757s] Level 1:colcon.colcon_core.environment:checking '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/bin'
+[7.757s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.ps1'
+[7.758s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.dsv'
+[7.758s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.sh'
+[7.758s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.bash'
+[7.758s] INFO:colcon.colcon_core.shell:Creating package script '/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/cube_imu_calibration/package.zsh'
+[7.758s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/wangjh/code/06imu_cube_calib/install/cube_imu_calibration/share/colcon-core/packages/cube_imu_calibration)
+[7.759s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[7.759s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[7.759s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[7.759s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[7.762s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[7.762s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[7.762s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[7.762s] DEBUG:colcon.colcon_notification.desktop_notification.notify2:Failed to initialize notify2: org.freedesktop.DBus.Error.AccessDenied: Failed to connect to socket /run/user/1000/bus: Operation not permitted
+[7.762s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[7.762s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wangjh/code/06imu_cube_calib/install/local_setup.ps1'
+[7.763s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/wangjh/code/06imu_cube_calib/install/_local_setup_util_ps1.py'
+[7.763s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wangjh/code/06imu_cube_calib/install/setup.ps1'
+[7.763s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wangjh/code/06imu_cube_calib/install/local_setup.sh'
+[7.764s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/wangjh/code/06imu_cube_calib/install/_local_setup_util_sh.py'
+[7.764s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wangjh/code/06imu_cube_calib/install/setup.sh'
+[7.764s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wangjh/code/06imu_cube_calib/install/local_setup.bash'
+[7.764s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wangjh/code/06imu_cube_calib/install/setup.bash'
+[7.765s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/wangjh/code/06imu_cube_calib/install/local_setup.zsh'
+[7.765s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/wangjh/code/06imu_cube_calib/install/setup.zsh'

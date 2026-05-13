@@ -1,0 +1,8 @@
+/home/wangjh/code/06imu_cube_calib/cube_imu_calibration/src/real_sensor_node.cpp:34:10: fatal error: std_srvs/srv/trigger.hpp: No such file or directory
+   34 | #include "std_srvs/srv/trigger.hpp"
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+gmake[2]: *** [CMakeFiles/real_sensor_node.dir/build.make:76: CMakeFiles/real_sensor_node.dir/src/real_sensor_node.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:702: CMakeFiles/real_sensor_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
