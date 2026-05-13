@@ -2028,9 +2028,9 @@ class StatusValue(QLabel):
     def __init__(self, text: str = "-") -> None:
         super().__init__(text)
         self.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        self.setMinimumHeight(28)
+        self.setMinimumHeight(24)
         self.setStyleSheet(
-            "QLabel { padding: 4px 8px; border: 1px solid #d0d5dd; border-radius: 4px; }"
+            "QLabel { padding: 3px 7px; border: 1px solid #d0d5dd; border-radius: 4px; }"
         )
 
     def set_state(self, text: str, state: str = "neutral", tooltip: str | None = None) -> None:
@@ -2046,7 +2046,7 @@ class StatusValue(QLabel):
         self.setStyleSheet(
             "QLabel {"
             f"background: {bg}; color: {fg}; border: 1px solid {border};"
-            "border-radius: 4px; padding: 4px 8px;"
+            "border-radius: 4px; padding: 3px 7px;"
             "}"
         )
 
@@ -2261,7 +2261,7 @@ class MotionGuideWidget(QWidget):
         self.detection_enabled = False
         self.progress = 0.0
         self.time_text = ""
-        self.setMinimumHeight(126)
+        self.setMinimumHeight(96)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
 
     def set_guide(
@@ -2326,7 +2326,7 @@ class MotionGuideWidget(QWidget):
         return titles.get(self.phase, "动作向导")
 
     def _draw_camera_frame(self, painter: QPainter, area: QRectF) -> None:
-        view = QRectF(area.left() + 18, area.top() + 34, area.width() - 36, area.height() - 58)
+        view = QRectF(area.left() + 16, area.top() + 30, area.width() - 32, area.height() - 50)
         painter.setPen(QPen(QColor("#d0d5dd"), 1.2, Qt.DashLine))
         painter.drawRect(view)
         painter.setPen(QPen(QColor("#98a2b3"), 1.0))
@@ -2571,9 +2571,9 @@ class CalibrationGui(QWidget):
         center_layout.addWidget(self._image_group(), 1)
 
         right_scroll = QScrollArea()
-        right_scroll.setMinimumWidth(760)
-        right_scroll.setMaximumWidth(1400)
-        right_scroll.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
+        right_scroll.setMinimumWidth(600)
+        right_scroll.setMaximumWidth(900)
+        right_scroll.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         right_scroll.setWidgetResizable(True)
         right_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         right_scroll.setFrameShape(QFrame.NoFrame)
@@ -2581,7 +2581,7 @@ class CalibrationGui(QWidget):
         right_column.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Expanding)
         right_layout = QVBoxLayout(right_column)
         right_layout.setContentsMargins(0, 0, 0, 0)
-        right_layout.setSpacing(10)
+        right_layout.setSpacing(6)
         right_layout.addWidget(self._settings_group(), 0)
         right_layout.addWidget(self._control_group(), 0)
         right_layout.addWidget(self._recorder_group(), 0)
@@ -2592,9 +2592,9 @@ class CalibrationGui(QWidget):
         content.addWidget(left_column)
         content.addWidget(center_column)
         content.addWidget(right_scroll)
-        content.setStretchFactor(0, 3)
-        content.setStretchFactor(1, 4)
-        content.setStretchFactor(2, 0)
+        content.setStretchFactor(0, 34)
+        content.setStretchFactor(1, 33)
+        content.setStretchFactor(2, 33)
         outer.addWidget(content, 1)
 
     def _fit_initial_window(self) -> None:
@@ -2615,9 +2615,9 @@ class CalibrationGui(QWidget):
     def _set_initial_splitter_sizes(self) -> None:
         width = max(1, self.content_splitter.width())
         self._apply_content_splitter_sizes([
-            int(width * 0.22),
-            int(width * 0.30),
-            int(width * 0.48),
+            int(width * 0.34),
+            int(width * 0.33),
+            int(width * 0.33),
         ])
 
     def _on_content_splitter_moved(self, position: int, index: int) -> None:
@@ -2702,8 +2702,8 @@ class CalibrationGui(QWidget):
                 background: #ffffff;
                 border: 1px solid #d0d5dd;
                 border-radius: 4px;
-                margin-top: 18px;
-                padding: 10px;
+                margin-top: 15px;
+                padding: 8px;
                 font-weight: 700;
                 color: #101828;
             }
@@ -2722,8 +2722,8 @@ class CalibrationGui(QWidget):
                 color: #344054;
                 border: 1px solid #98a2b3;
                 border-radius: 3px;
-                padding: 4px 7px;
-                min-height: 24px;
+                padding: 3px 6px;
+                min-height: 22px;
             }
             QLineEdit:disabled, QDoubleSpinBox:disabled, QSpinBox:disabled {
                 color: #98a2b3;
@@ -2734,8 +2734,8 @@ class CalibrationGui(QWidget):
                 color: #101828;
                 border: 1px solid #98a2b3;
                 border-radius: 4px;
-                padding: 6px 10px;
-                min-height: 28px;
+                padding: 5px 9px;
+                min-height: 26px;
             }
             QPushButton:hover {
                 background: #f9fafb;
@@ -2771,7 +2771,7 @@ class CalibrationGui(QWidget):
                 color: #101828;
                 border: 1px solid #98a2b3;
                 border-radius: 3px;
-                min-height: 24px;
+                min-height: 20px;
                 text-align: center;
             }
             QProgressBar::chunk {
@@ -2790,7 +2790,7 @@ class CalibrationGui(QWidget):
 
     def _row(self, layout: QGridLayout, row: int, name: str, key: str) -> None:
         label = QLabel(name)
-        label.setMinimumWidth(112)
+        label.setMinimumWidth(88)
         value = StatusValue()
         value.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
         layout.addWidget(label, row, 0)
@@ -2833,6 +2833,8 @@ class CalibrationGui(QWidget):
     def _settings_group(self) -> QGroupBox:
         group = QGroupBox("采集设置")
         layout = QGridLayout(group)
+        layout.setHorizontalSpacing(8)
+        layout.setVerticalSpacing(5)
 
         self.image_topic_edit = QLineEdit(f"Orbbec SDK 直连 1280x720 mono8 >= {MIN_RECORD_IMAGE_RATE_HZ:.0f}Hz")
         self.imu_topic_edit = QLineEdit(f"Cube 串口 IMU 直连 >= {MIN_RECORD_IMU_RATE_HZ:.0f}Hz")
@@ -2870,21 +2872,26 @@ class CalibrationGui(QWidget):
         self.duration_spin.setSuffix(" s")
 
         rows = [
-            ("图像输入", self.image_topic_edit),
-            ("IMU 输入", self.imu_topic_edit),
-            ("CameraInfo 输入", self.camera_info_topic_edit),
-            ("输出前缀", self.bag_path_edit),
-            ("动作计划时长", self.duration_spin),
-            ("相机 frame", self.camera_frame_edit),
-            ("IMU frame", self.imu_frame_edit),
-            ("Cube 模板", self.cube_layout_edit),
-            ("IMU 来源", self.imu_source_edit),
-            ("IMU 串口", self.serial_port_edit),
+            ("图像", self.image_topic_edit),
+            ("IMU", self.imu_topic_edit),
+            ("内参", self.camera_info_topic_edit),
+            ("前缀", self.bag_path_edit),
+            ("时长", self.duration_spin),
+            ("相机帧", self.camera_frame_edit),
+            ("IMU帧", self.imu_frame_edit),
+            ("模板", self.cube_layout_edit),
+            ("来源", self.imu_source_edit),
+            ("串口", self.serial_port_edit),
         ]
-        for row, (name, widget) in enumerate(rows):
-            layout.addWidget(QLabel(name), row, 0)
-            layout.addWidget(widget, row, 1)
+        for index, (name, widget) in enumerate(rows):
+            row = index // 2
+            column = (index % 2) * 2
+            label = QLabel(name)
+            label.setMinimumWidth(48)
+            layout.addWidget(label, row, column)
+            layout.addWidget(widget, row, column + 1)
         layout.setColumnStretch(1, 1)
+        layout.setColumnStretch(3, 1)
         return group
 
     def _image_group(self) -> QGroupBox:
@@ -2936,6 +2943,8 @@ class CalibrationGui(QWidget):
     def _control_group(self) -> QGroupBox:
         group = QGroupBox("一键控制")
         layout = QGridLayout(group)
+        layout.setHorizontalSpacing(8)
+        layout.setVerticalSpacing(6)
 
         self.runtime_state = StatusValue("直连采集未启动")
         self.runtime_state.setWordWrap(True)
@@ -2963,23 +2972,15 @@ class CalibrationGui(QWidget):
         layout.addLayout(runtime_buttons, 1, 0, 1, 2)
 
         self.sim_state = StatusValue("直连硬件模式下不使用 ROS 仿真输入")
-        self.sim_state.setWordWrap(True)
-        self.sim_state.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
-        layout.addWidget(QLabel("仿真状态"), 2, 0)
-        layout.addWidget(self.sim_state, 2, 1)
-
-        sim_buttons = QGridLayout()
-        sim_buttons.setHorizontalSpacing(8)
         self.start_sim_button = QPushButton("启动仿真测试")
         self.stop_sim_button = QPushButton("停止仿真测试")
         self.start_sim_button.setEnabled(False)
         self.stop_sim_button.setEnabled(False)
         self.start_sim_button.clicked.connect(self._start_sim_node)
         self.stop_sim_button.clicked.connect(self._stop_sim_node)
-        for column, button in enumerate((self.start_sim_button, self.stop_sim_button)):
-            sim_buttons.addWidget(self._fit_right_button(button), 0, column)
-            sim_buttons.setColumnStretch(column, 1)
-        layout.addLayout(sim_buttons, 3, 0, 1, 2)
+        self.sim_state.hide()
+        self.start_sim_button.hide()
+        self.stop_sim_button.hide()
         layout.setColumnStretch(1, 1)
         return group
 
@@ -3675,6 +3676,8 @@ class CalibrationGui(QWidget):
     def _recorder_group(self) -> QGroupBox:
         group = QGroupBox("直连数据录制")
         layout = QGridLayout(group)
+        layout.setHorizontalSpacing(8)
+        layout.setVerticalSpacing(5)
         self._row(layout, 0, "状态", "recording")
         self._row(layout, 1, "数据目录", "bag_path")
         self._row(layout, 2, "保存位置", "bag_save_path")
@@ -3685,11 +3688,11 @@ class CalibrationGui(QWidget):
         layout.addWidget(self._phase_progress_widget(), 6, 1)
         self._row(layout, 7, "服务提示", "service_message")
         for key in ("bag_save_path", "service_message"):
-            self.values[key].setWordWrap(True)
-            self.values[key].setMaximumHeight(58)
+            self.values[key].setWordWrap(False)
+            self.values[key].setMaximumHeight(32)
         self.values["action_time"].setWordWrap(True)
-        self.values["action_time"].setMinimumHeight(58)
-        self.values["action_time"].setMaximumHeight(76)
+        self.values["action_time"].setMinimumHeight(42)
+        self.values["action_time"].setMaximumHeight(48)
 
         label = QLabel("正式进度")
         self.progress_bar = QProgressBar()
@@ -3720,7 +3723,8 @@ class CalibrationGui(QWidget):
 
         self.motion_hint = StatusValue(self.current_motion_hint)
         self.motion_hint.setWordWrap(True)
-        self.motion_hint.setMinimumHeight(58)
+        self.motion_hint.setMinimumHeight(42)
+        self.motion_hint.setMaximumHeight(52)
         layout.addWidget(QLabel("动作提示"), 10, 0)
         layout.addWidget(self.motion_hint, 10, 1)
 
@@ -3735,28 +3739,39 @@ class CalibrationGui(QWidget):
         layout = QGridLayout(panel)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setHorizontalSpacing(6)
-        layout.setVerticalSpacing(4)
+        layout.setVerticalSpacing(5)
         self.phase_progress_bars = []
         self.phase_status_values = []
         for index, (title, _, _) in enumerate(ACTION_PHASES):
-            label = QLabel(f"{index + 1}. {title}")
-            label.setMinimumWidth(104)
+            compact_title = (
+                title.replace("多面过渡+小平移", "多面+平移")
+                .replace("8字+三轴组合", "8字+组合")
+            )
+            item = QWidget()
+            item_layout = QGridLayout(item)
+            item_layout.setContentsMargins(0, 0, 0, 0)
+            item_layout.setHorizontalSpacing(5)
+            label = QLabel(f"{index + 1}. {compact_title}")
+            label.setMinimumWidth(82)
             label.setStyleSheet("QLabel { color: #344054; font-weight: 600; }")
             bar = QProgressBar()
             bar.setRange(0, 1000)
             bar.setValue(0)
             bar.setTextVisible(True)
             bar.setFormat("待采集")
-            bar.setMinimumHeight(22)
+            bar.setMinimumHeight(20)
             self._set_phase_bar_state(bar, "neutral")
             status = StatusValue("待采集")
-            status.setMinimumWidth(150)
-            status.setMinimumHeight(22)
-            layout.addWidget(label, index, 0)
-            layout.addWidget(bar, index, 1)
-            layout.addWidget(status, index, 2)
+            status.setMinimumWidth(86)
+            status.setMinimumHeight(20)
+            item_layout.addWidget(label, 0, 0)
+            item_layout.addWidget(bar, 0, 1)
+            item_layout.addWidget(status, 0, 2)
+            item_layout.setColumnStretch(1, 1)
+            layout.addWidget(item, index // 2, index % 2)
             self.phase_progress_bars.append(bar)
             self.phase_status_values.append(status)
+        layout.setColumnStretch(0, 1)
         layout.setColumnStretch(1, 1)
         return panel
 
@@ -4347,11 +4362,14 @@ class CalibrationGui(QWidget):
             elapsed_for_rate = max(float(status.elapsed_sec), 1e-6)
             image_record_rate = float(status.image_count) / elapsed_for_rate if status.recording else 0.0
             cube_pose_record_rate = float(cube_pose_count) / elapsed_for_rate if status.recording else 0.0
-            self.values["message_counts"].set_state(
+            message_counts = (
                 f"image={status.image_count}   imu={status.imu_count}   "
                 f"camera_info={status.camera_info_count}   cube_pose={cube_pose_count}   "
                 f"cube_pose_status={cube_pose_status_count}   "
-                f"rec_hz image={image_record_rate:.1f} cube_pose={cube_pose_record_rate:.1f}",
+                f"rec_hz image={image_record_rate:.1f} cube_pose={cube_pose_record_rate:.1f}"
+            )
+            self.values["message_counts"].set_state(
+                self._compact_text(message_counts, 88),
                 "ok"
                 if status.image_count > 0
                 and status.imu_count > 0
@@ -4359,6 +4377,7 @@ class CalibrationGui(QWidget):
                 and (not self.bridge.enable_cube_detection or cube_pose_count > 0)
                 and (not status.recording or image_record_rate >= 8.0)
                 else "warn",
+                message_counts,
             )
             if status.target_duration_sec > 0.0:
                 self.values["record_time"].set_state(
