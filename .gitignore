@@ -4,10 +4,28 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .venv/
+.agents/
+.codex/
+
+# Build and generated runtime outputs
 build/
+install/
+log/
+Log/
 dist/
 *.egg-info/
 outputs/
+output_bag/
 data/
 examples/synthetic_data/
 
+# Capture/calibration data products
+*.bag
+*.db3
+*.mcap
+*.sqlite3
+tag_pose.csv
+*_pose.csv
+imu.csv
+camera_info.yaml
+image_timestamps.csv
