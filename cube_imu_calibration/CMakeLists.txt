@@ -50,16 +50,6 @@ ament_target_dependencies(data_recorder_node
 )
 target_link_libraries(data_recorder_node "${cpp_typesupport_target}")
 
-add_executable(simulated_sensor_node src/simulated_sensor_node.cpp)
-ament_target_dependencies(simulated_sensor_node
-  rclcpp
-  sensor_msgs
-  std_msgs
-  cv_bridge
-)
-target_include_directories(simulated_sensor_node PRIVATE ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(simulated_sensor_node ${OpenCV_LIBS})
-
 set(extra_runtime_targets "")
 if(EXISTS "${ORBBEC_INCLUDE_DIR}/libobsensor/ObSensor.hpp" AND EXISTS "${ORBBEC_SDK_LIBRARY}")
   add_library(cube_imu_direct_sensor SHARED
@@ -115,7 +105,6 @@ endif()
 
 install(TARGETS
   data_recorder_node
-  simulated_sensor_node
   ${extra_runtime_targets}
   DESTINATION lib/${PROJECT_NAME}
 )

@@ -1785,6 +1785,31 @@ class RosBridge:
                 b = points[(index + 1) % count]
                 painter.drawLine(QPointF(float(a[0]), float(a[1])), QPointF(float(b[0]), float(b[1])))
 
+        def draw_axis_arrow(origin: np.ndarray, point: np.ndarray, color: str, name: str) -> None:
+            start = QPointF(float(origin[0]), float(origin[1]))
+            end = QPointF(float(point[0]), float(point[1]))
+            painter.setPen(QPen(QColor(color), 3.0, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
+            painter.drawLine(start, end)
+
+            vector = np.array([end.x() - start.x(), end.y() - start.y()], dtype=float)
+            norm = float(np.linalg.norm(vector))
+            if norm > 1e-6:
+                direction = vector / norm
+                normal = np.array([-direction[1], direction[0]])
+                size = 10.0
+                p1 = np.array([end.x(), end.y()]) - direction * size + normal * size * 0.45
+                p2 = np.array([end.x(), end.y()]) - direction * size - normal * size * 0.45
+                head = QPainterPath()
+                head.moveTo(end)
+                head.lineTo(QPointF(float(p1[0]), float(p1[1])))
+                head.lineTo(QPointF(float(p2[0]), float(p2[1])))
+                head.closeSubpath()
+                painter.fillPath(head, QColor(color))
+
+            painter.setPen(QColor(color))
+            painter.setFont(QFont("Sans Serif", 11, QFont.Bold))
+            painter.drawText(QPointF(float(point[0]) + 5.0, float(point[1]) - 5.0), name)
+
         corners_2d_by_tag = [
             np.asarray(tag_corners, dtype=np.float64).reshape(-1, 2) * scale
             for tag_corners in tag_corners_by_tag
@@ -1822,15 +1847,11 @@ class RosBridge:
         if self._valid_pixel_points(axis_2d):
             origin = axis_2d[0]
             for point, color, name in (
-                (axis_2d[1], "#f04438", "X"),
-                (axis_2d[2], "#12b76a", "Y"),
-                (axis_2d[3], "#2e90fa", "Z"),
+                (axis_2d[1], "#f04438", "+X"),
+                (axis_2d[2], "#12b76a", "+Y"),
+                (axis_2d[3], "#2e90fa", "+Z"),
             ):
-                painter.setPen(QPen(QColor(color), 3.0))
-                painter.drawLine(QPointF(float(origin[0]), float(origin[1])), QPointF(float(point[0]), float(point[1])))
-                painter.setPen(QColor(color))
-                painter.setFont(QFont("Sans Serif", 11, QFont.Bold))
-                painter.drawText(QPointF(float(point[0]) + 4.0, float(point[1]) - 4.0), name)
+                draw_axis_arrow(origin, point, color, name)
 
         label_position = corners_2d_by_tag[0][0]
         tag_text = ";".join(f"{tag_id}/{face}" for tag_id, face in zip(tag_ids, face_names))
@@ -1839,6 +1860,12 @@ class RosBridge:
         painter.drawText(
             QPointF(float(label_position[0]) + 6.0, float(label_position[1]) - 8.0),
             f"{CUBE_LAYOUT_LABEL} tags={tag_text}  reproj={reproj_error:.2f}px  z={float(tvec[2]):.3f}m",
+        )
+        painter.setPen(QColor("#344054"))
+        painter.setFont(QFont("Sans Serif", 9, QFont.Bold))
+        painter.drawText(
+            QPointF(float(label_position[0]) + 6.0, float(label_position[1]) + 10.0),
+            "+X->ID2/right  +Y->ID3/bottom  +Z->Cube内",
         )
         painter.end()
         max_rotation_deg, max_translation_m = self.last_multitag_consistency
@@ -2261,8 +2288,8 @@ class MotionGuideWidget(QWidget):
         self.detection_enabled = False
         self.progress = 0.0
         self.time_text = ""
-        self.setMinimumHeight(96)
-        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.setMinimumHeight(220)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
     def set_guide(
         self,
@@ -2289,49 +2316,45 @@ class MotionGuideWidget(QWidget):
         area = QRectF(self.rect()).adjusted(10, 8, -10, -8)
 
         border = "#abefc6" if self.pose_visible else "#fedf89"
-        painter.setPen(QPen(QColor(border), 1.4))
-        painter.drawRoundedRect(area, 4, 4)
+        painter.setPen(QPen(QColor(border), 1.2))
+        painter.setBrush(QColor("#ffffff"))
+        painter.drawRoundedRect(area, 5, 5)
 
         title = "采集前：带 Tag 的 IMU 模块放入画面中央" if not self.recording else self._phase_title()
         painter.setPen(QColor("#101828"))
         painter.setFont(QFont("Sans Serif", 9, QFont.Bold))
-        painter.drawText(area.adjusted(10, 6, -10, 0), Qt.AlignTop | Qt.AlignLeft, title)
+        painter.drawText(area.adjusted(12, 7, -12, 0), Qt.AlignTop | Qt.AlignLeft, title)
 
-        painter.setPen(QColor("#667085"))
-        painter.setFont(QFont("Sans Serif", 8))
-        view_text = "视频采集模式"
-        painter.drawText(area.adjusted(10, 6, -10, 0), Qt.AlignTop | Qt.AlignRight, view_text)
-        if self.time_text:
-            painter.drawText(
-                area.adjusted(10, 22, -10, 0),
-                Qt.AlignTop | Qt.AlignLeft | Qt.TextWordWrap,
-                self.time_text,
-            )
-
-        self._draw_camera_frame(painter, area)
-        self._draw_cube(painter, area)
-        self._draw_phase_motion(painter, area)
+        view = self._guide_view(area)
+        self._draw_camera_frame(painter, view)
+        self._draw_axis_legend(painter, view)
+        self._draw_cube(painter, view)
+        self._draw_phase_motion(painter, view)
         self._draw_progress(painter, area)
 
     def _phase_title(self) -> str:
         titles = {
             0: "1/6 居中静止",
-            1: "2/6 绕 X 轴",
-            2: "3/6 绕 Y 轴",
-            3: "4/6 绕 Z 轴",
+            1: "2/6 绕 +X 轴（ID2/right）",
+            2: "3/6 绕 +Y 轴（ID3/bottom）",
+            3: "4/6 绕 +Z 轴（Cube内）",
             4: "5/6 平移 + 组合旋转",
             5: "6/6 八字/斜向运动",
             6: "向导完成",
         }
         return titles.get(self.phase, "动作向导")
 
+    @staticmethod
+    def _guide_view(area: QRectF) -> QRectF:
+        return QRectF(area.left() + 14, area.top() + 30, area.width() - 28, area.height() - 52)
+
     def _draw_camera_frame(self, painter: QPainter, area: QRectF) -> None:
-        view = QRectF(area.left() + 16, area.top() + 30, area.width() - 32, area.height() - 50)
-        painter.setPen(QPen(QColor("#d0d5dd"), 1.2, Qt.DashLine))
-        painter.drawRect(view)
-        painter.setPen(QPen(QColor("#98a2b3"), 1.0))
-        painter.drawLine(QPointF(view.center().x(), view.top()), QPointF(view.center().x(), view.bottom()))
-        painter.drawLine(QPointF(view.left(), view.center().y()), QPointF(view.right(), view.center().y()))
+        painter.setPen(QPen(QColor("#d0d5dd"), 1.1, Qt.DashLine))
+        painter.setBrush(QColor("#f8fafc"))
+        painter.drawRoundedRect(area, 3, 3)
+        painter.setPen(QPen(QColor("#e4e7ec"), 1.0))
+        painter.drawLine(QPointF(area.center().x(), area.top()), QPointF(area.center().x(), area.bottom()))
+        painter.drawLine(QPointF(area.left(), area.center().y()), QPointF(area.right(), area.center().y()))
 
     def _cube_points(self, area: QRectF) -> tuple[list[QPointF], list[QPointF], list[QPointF]]:
         center = QPointF(area.center().x(), area.center().y() + 8)
@@ -2370,32 +2393,32 @@ class MotionGuideWidget(QWidget):
         painter.drawPath(path)
 
     def _draw_cube(self, painter: QPainter, area: QRectF) -> None:
-        center = QPointF(area.center().x(), area.center().y() + 8)
+        center = QPointF(area.center().x() - min(28.0, area.width() * 0.05), area.center().y() + 4)
 
         cable = QPainterPath()
-        cable.moveTo(QPointF(center.x() - 42, center.y() + 15))
+        cable.moveTo(QPointF(center.x() - 42, center.y() + 13))
         cable.cubicTo(
-            QPointF(center.x() - 90, center.y() + 6),
-            QPointF(area.left() + 70, center.y() + 36),
-            QPointF(area.left() + 28, area.bottom() - 18),
+            QPointF(center.x() - 88, center.y() + 2),
+            QPointF(area.left() + 70, area.center().y() + 28),
+            QPointF(area.left() + 26, area.bottom() - 8),
         )
-        painter.setPen(QPen(QColor("#475467"), 3.0, Qt.SolidLine, Qt.RoundCap))
+        painter.setPen(QPen(QColor("#667085"), 3.0, Qt.SolidLine, Qt.RoundCap))
         painter.drawPath(cable)
 
         strap = QPainterPath()
         strap.moveTo(QPointF(center.x() - 32, center.y() + 18))
         strap.cubicTo(
-            QPointF(center.x() - 40, center.y() + 48),
-            QPointF(center.x() + 36, center.y() + 50),
+            QPointF(center.x() - 38, center.y() + 40),
+            QPointF(center.x() + 34, center.y() + 42),
             QPointF(center.x() + 30, center.y() + 18),
         )
-        painter.setPen(QPen(QColor("#101828"), 6.0, Qt.SolidLine, Qt.RoundCap))
+        painter.setPen(QPen(QColor("#101828"), 5.2, Qt.SolidLine, Qt.RoundCap))
         painter.drawPath(strap)
         painter.setPen(QPen(QColor("#667085"), 1.2))
         for offset in (-18, 0, 18):
-            painter.drawEllipse(QPointF(center.x() + offset, center.y() + 36), 2.2, 2.2)
+            painter.drawEllipse(QPointF(center.x() + offset, center.y() + 31), 1.8, 1.8)
 
-        imu_body = QRectF(center.x() - 44, center.y() - 6, 74, 28)
+        imu_body = QRectF(center.x() - 42, center.y() - 6, 70, 26)
         painter.setPen(QPen(QColor("#475467"), 1.2))
         painter.setBrush(QColor("#101828"))
         painter.drawRoundedRect(imu_body, 5, 5)
@@ -2404,8 +2427,8 @@ class MotionGuideWidget(QWidget):
         painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
         painter.drawText(imu_body, Qt.AlignCenter, "IMU")
 
-        tag_center = QPointF(center.x() + 28, center.y() - 28)
-        tag_side = min(area.width() * 0.14, 48.0)
+        tag_center = QPointF(center.x() + 28, center.y() - 26)
+        tag_side = min(max(area.width() * 0.10, 34.0), 46.0)
         painter.save()
         painter.translate(tag_center)
         painter.rotate(-18.0)
@@ -2425,9 +2448,19 @@ class MotionGuideWidget(QWidget):
                 cell * 0.92,
             ))
         painter.setPen(QPen(QColor("#f04438"), 2.0, Qt.SolidLine, Qt.RoundCap))
-        painter.drawLine(QPointF(0, 0), QPointF(tag_side * 0.42, 0))
+        self._draw_arrow(painter, QPointF(0, 0), QPointF(tag_side * 0.42, 0), "#f04438", 2.0)
         painter.setPen(QPen(QColor("#12b76a"), 2.0, Qt.SolidLine, Qt.RoundCap))
-        painter.drawLine(QPointF(0, 0), QPointF(0, -tag_side * 0.42))
+        self._draw_arrow(painter, QPointF(0, 0), QPointF(0, tag_side * 0.42), "#12b76a", 2.0)
+        painter.setPen(QPen(QColor("#2e90fa"), 2.0))
+        painter.setBrush(QColor("#2e90fa"))
+        painter.drawEllipse(QPointF(0, 0), 3.0, 3.0)
+        painter.setPen(QColor("#f04438"))
+        painter.setFont(QFont("Sans Serif", 7, QFont.Bold))
+        painter.drawText(QPointF(tag_side * 0.24, -3.0), "+X")
+        painter.setPen(QColor("#12b76a"))
+        painter.drawText(QPointF(3.0, tag_side * 0.36), "+Y")
+        painter.setPen(QColor("#2e90fa"))
+        painter.drawText(QPointF(-tag_side * 0.48, -tag_side * 0.28), "+Z入")
         painter.restore()
 
     def _draw_arrow(
@@ -2468,10 +2501,13 @@ class MotionGuideWidget(QWidget):
         self._draw_arrow(painter, start, end, color, 0.1)
 
     def _draw_phase_motion(self, painter: QPainter, area: QRectF) -> None:
-        center = QPointF(area.center().x(), area.center().y() + 8)
+        center = QPointF(area.center().x() - min(28.0, area.width() * 0.05), area.center().y() + 4)
         if not self.recording:
-            self._draw_arrow(painter, QPointF(center.x() - 80, center.y()), QPointF(center.x() - 36, center.y()), "#2e90fa")
-            self._draw_arrow(painter, QPointF(center.x() + 80, center.y()), QPointF(center.x() + 36, center.y()), "#2e90fa")
+            self._draw_arrow(painter, QPointF(center.x() - 90, center.y()), QPointF(center.x() - 50, center.y()), "#2e90fa")
+            self._draw_arrow(painter, QPointF(center.x() + 90, center.y()), QPointF(center.x() + 50, center.y()), "#2e90fa")
+            painter.setPen(QColor("#2e90fa"))
+            painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
+            painter.drawText(QRectF(center.x() - 120, center.y() + 18, 240, 18), Qt.AlignCenter, "模块居中，Tag 清晰可见")
             return
 
         if self.phase == 0:
@@ -2482,15 +2518,18 @@ class MotionGuideWidget(QWidget):
         elif self.phase == 1:
             self._draw_arc_arrow(painter, QRectF(center.x() - 70, center.y() - 42, 140, 84), 25, 250, "#f04438")
             painter.setPen(QColor("#f04438"))
-            painter.drawText(QRectF(center.x() - 18, center.y() + 42, 36, 18), Qt.AlignCenter, "X")
+            painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
+            painter.drawText(QRectF(center.x() - 60, center.y() + 34, 120, 30), Qt.AlignCenter, "绕 +X\nID2/right")
         elif self.phase == 2:
             self._draw_arc_arrow(painter, QRectF(center.x() - 44, center.y() - 58, 88, 116), -65, 250, "#12b76a")
             painter.setPen(QColor("#12b76a"))
-            painter.drawText(QRectF(center.x() - 18, center.y() + 46, 36, 18), Qt.AlignCenter, "Y")
+            painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
+            painter.drawText(QRectF(center.x() - 70, center.y() + 34, 140, 30), Qt.AlignCenter, "绕 +Y\nID3/bottom")
         elif self.phase == 3:
             self._draw_arc_arrow(painter, QRectF(center.x() - 58, center.y() - 58, 116, 116), 210, -270, "#2e90fa")
             painter.setPen(QColor("#2e90fa"))
-            painter.drawText(QRectF(center.x() - 18, center.y() + 50, 36, 18), Qt.AlignCenter, "Z")
+            painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
+            painter.drawText(QRectF(center.x() - 58, center.y() + 36, 116, 28), Qt.AlignCenter, "绕 +Z\n入内")
         elif self.phase == 4:
             self._draw_arrow(painter, QPointF(center.x() - 100, center.y() + 42), QPointF(center.x() - 46, center.y() + 14), "#f04438")
             self._draw_arrow(painter, QPointF(center.x() + 100, center.y() - 42), QPointF(center.x() + 50, center.y() - 14), "#12b76a")
@@ -2516,8 +2555,22 @@ class MotionGuideWidget(QWidget):
             painter.drawLine(QPointF(center.x() - 38, center.y()), QPointF(center.x() - 8, center.y() + 28))
             painter.drawLine(QPointF(center.x() - 8, center.y() + 28), QPointF(center.x() + 46, center.y() - 36))
 
+    def _draw_axis_legend(self, painter: QPainter, area: QRectF) -> None:
+        legend = QRectF(area.right() - 102, area.top() + 7, 92, 58)
+        painter.setFont(QFont("Sans Serif", 8, QFont.Bold))
+        for index, (text, color) in enumerate((
+            ("+X ID2/right", "#f04438"),
+            ("+Y ID3/bottom", "#12b76a"),
+            ("+Z 入内", "#2e90fa"),
+        )):
+            row = QRectF(legend.left(), legend.top() + index * 19, legend.width(), 16)
+            painter.setPen(QColor(color))
+            painter.setBrush(QColor("#ffffff"))
+            painter.drawRoundedRect(row, 3, 3)
+            painter.drawText(row.adjusted(6, 0, -4, 0), Qt.AlignVCenter | Qt.AlignLeft, text)
+
     def _draw_progress(self, painter: QPainter, area: QRectF) -> None:
-        bar = QRectF(area.left() + 18, area.bottom() - 16, area.width() - 36, 6)
+        bar = QRectF(area.left() + 16, area.bottom() - 14, area.width() - 32, 5)
         painter.fillRect(bar, QColor("#eaecf0"))
         done = QRectF(bar.left(), bar.top(), bar.width() * self.progress, bar.height())
         painter.fillRect(done, QColor("#84caff"))
@@ -2532,7 +2585,6 @@ class CalibrationGui(QWidget):
         self.values = {}
         self.runtime_process = None
         self.sensor_process = None
-        self.sim_process = None
         self.direct_start_in_progress = False
         self.direct_start_requested_wall = 0.0
         self.direct_start_result = None
@@ -2561,8 +2613,6 @@ class CalibrationGui(QWidget):
         self.phase_collected = [False] * len(ACTION_PHASES)
         self.current_phase_detection = ("warn", "等待姿态检测")
         self.stop_record_request_wall = 0.0
-        self._sim_source_cache_wall = 0.0
-        self._sim_source_cache_value = False
         self._preview_cache_key = None
         self._preview_cache_pixmap = None
         self._last_preview_paint_wall = 0.0
@@ -2615,6 +2665,7 @@ class CalibrationGui(QWidget):
         center_layout.setContentsMargins(0, 0, 0, 0)
         center_layout.setSpacing(10)
         center_layout.addWidget(self._image_group(), 1)
+        center_layout.addWidget(self._motion_group(), 1)
 
         right_scroll = QScrollArea()
         right_scroll.setMinimumWidth(600)
@@ -2638,9 +2689,9 @@ class CalibrationGui(QWidget):
         content.addWidget(left_column)
         content.addWidget(center_column)
         content.addWidget(right_scroll)
-        content.setStretchFactor(0, 34)
-        content.setStretchFactor(1, 33)
-        content.setStretchFactor(2, 33)
+        content.setStretchFactor(0, 30)
+        content.setStretchFactor(1, 40)
+        content.setStretchFactor(2, 30)
         outer.addWidget(content, 1)
 
     def _fit_initial_window(self) -> None:
@@ -2661,9 +2712,9 @@ class CalibrationGui(QWidget):
     def _set_initial_splitter_sizes(self) -> None:
         width = max(1, self.content_splitter.width())
         self._apply_content_splitter_sizes([
-            int(width * 0.34),
-            int(width * 0.33),
-            int(width * 0.33),
+            int(width * 0.30),
+            int(width * 0.40),
+            int(width * 0.30),
         ])
 
     def _on_content_splitter_moved(self, position: int, index: int) -> None:
@@ -2689,7 +2740,7 @@ class CalibrationGui(QWidget):
         sizes = self._content_splitter_sizes or self.content_splitter.sizes()
         if len(sizes) != 3 or target_total <= 0:
             return sizes
-        right = min(max(sizes[2], 760), 1400)
+        right = min(max(sizes[2], 600), 900)
         remaining = max(2, target_total - right)
         left_center_total = max(1, sizes[0] + sizes[1])
         left = max(1, int(round(remaining * sizes[0] / left_center_total)))
@@ -2961,6 +3012,23 @@ class CalibrationGui(QWidget):
         layout.addWidget(self.image_info, 0)
         return group
 
+    def _motion_group(self) -> QGroupBox:
+        group = QGroupBox("动作向导")
+        group.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        layout = QVBoxLayout(group)
+        layout.setContentsMargins(8, 10, 8, 8)
+        layout.setSpacing(6)
+
+        self.motion_hint = StatusValue(self.current_motion_hint)
+        self.motion_hint.setWordWrap(True)
+        self.motion_hint.setMinimumHeight(38)
+        self.motion_hint.setMaximumHeight(48)
+        self.motion_guide = MotionGuideWidget()
+
+        layout.addWidget(self.motion_hint, 0)
+        layout.addWidget(self.motion_guide, 1)
+        return group
+
     def _imu_group(self) -> QGroupBox:
         group = QGroupBox("IMU 模块 / 六轴波形")
         layout = QVBoxLayout(group)
@@ -3050,7 +3118,6 @@ class CalibrationGui(QWidget):
         self.bridge.last_pose = None
         self.bridge.last_pose_wall = 0.0
         self.bridge.configure_data_subscriptions()
-        self._sim_source_cache_wall = 0.0
 
     def _runtime_running(self) -> bool:
         return self.bridge.direct_sensor.is_started()
@@ -3066,49 +3133,6 @@ class CalibrationGui(QWidget):
 
     def _recorder_online(self) -> bool:
         return True
-
-    def _sim_process_running(self) -> bool:
-        return self.sim_process is not None and self.sim_process.state() != QProcess.NotRunning
-
-    def _sim_running(self) -> bool:
-        return False
-
-    def _topic_publisher_node_names(self, topic: str) -> list[str]:
-        try:
-            infos = self.bridge.node.get_publishers_info_by_topic(topic)
-        except Exception:  # noqa: BLE001 - graph introspection is diagnostic only.
-            return []
-        names = []
-        for info in infos:
-            node_name = getattr(info, "node_name", "")
-            node_namespace = getattr(info, "node_namespace", "")
-            if not node_name:
-                continue
-            if node_namespace and node_namespace != "/":
-                names.append(f"{node_namespace.rstrip('/')}/{node_name}")
-            else:
-                names.append(node_name)
-        return names
-
-    def _sim_publishers_present(self) -> bool:
-        now = time.monotonic()
-        if now - self._sim_source_cache_wall < 0.5:
-            return self._sim_source_cache_value
-
-        names = []
-        for topic in (
-            self.bridge.image_topic,
-            self.bridge.imu_topic,
-            self.bridge.camera_info_topic,
-        ):
-            names.extend(self._topic_publisher_node_names(topic))
-        value = any(name.rsplit("/", 1)[-1] == "simulated_sensor_node" for name in names)
-        self._sim_source_cache_wall = now
-        self._sim_source_cache_value = value
-        return value
-
-    def _sim_source_active(self) -> bool:
-        return False
 
     def _preview_source_label(self) -> str:
         return "直连硬件"
@@ -3529,23 +3553,6 @@ class CalibrationGui(QWidget):
         )
         self.values["action_time"].set_state(action_summary, state, self.current_action_time_text)
 
-    def _start_sim_node(self) -> None:
-        self.bridge.last_service_message = "直连硬件模式不再通过 ROS 仿真话题采集"
-
-    def _stop_sim_node(self) -> None:
-        self.sim_process = None
-        self.bridge.last_service_message = "直连硬件模式没有 ROS 仿真进程需要停止"
-
-    def _kill_sim_if_needed(self) -> None:
-        return
-
-    def _sim_finished(self, exit_code: int, exit_status: QProcess.ExitStatus) -> None:
-        del exit_status
-        self.bridge.last_service_message = f"仿真测试已退出，退出码={exit_code}"
-
-    def _sim_error(self, error: QProcess.ProcessError) -> None:
-        self.bridge.last_service_message = f"仿真测试启动异常：{error}"
-
     def _sensor_publishers_present(self) -> bool:
         stats = self.bridge.direct_sensor.stats()
         return bool(stats.image_rate_hz > 0.1 or stats.imu_rate_hz > 0.1 or self.bridge.camera_info_ready)
@@ -3743,16 +3750,6 @@ class CalibrationGui(QWidget):
         self.stop_button.clicked.connect(self._manual_stop_recording)
         layout.addWidget(self._fit_right_button(self.stop_button), 9, 0, 1, 2)
 
-        self.motion_hint = StatusValue(self.current_motion_hint)
-        self.motion_hint.setWordWrap(True)
-        self.motion_hint.setMinimumHeight(42)
-        self.motion_hint.setMaximumHeight(52)
-        layout.addWidget(QLabel("动作提示"), 10, 0)
-        layout.addWidget(self.motion_hint, 10, 1)
-
-        self.motion_guide = MotionGuideWidget()
-        layout.addWidget(QLabel("动作示意"), 11, 0)
-        layout.addWidget(self.motion_guide, 11, 1)
         layout.setColumnStretch(1, 1)
         return group
 
@@ -3790,11 +3787,10 @@ class CalibrationGui(QWidget):
             item_layout.addWidget(bar, 0, 1)
             item_layout.addWidget(status, 0, 2)
             item_layout.setColumnStretch(1, 1)
-            layout.addWidget(item, index // 2, index % 2)
+            layout.addWidget(item, index, 0)
             self.phase_progress_bars.append(bar)
             self.phase_status_values.append(status)
         layout.setColumnStretch(0, 1)
-        layout.setColumnStretch(1, 1)
         return panel
 
     def _topic_state_from_count(self, topic: str, count: int) -> tuple[str, str]:
@@ -4550,10 +4546,10 @@ class CalibrationGui(QWidget):
             if stable_sec >= 2.0:
                 self.motion_phase_progress = 1.0
                 self._advance_motion_phase()
-                return "阶段 1 完成。下一步：请缓慢绕 Cube 的 X 轴来回旋转，Cube 保持在画面内。", "ok"
+                return "阶段 1 完成。下一步：绕红色 +X 轴慢速往返，+X 指向 ID2/right。", "ok"
             self.motion_phase_progress = stable_sec / 2.0
             return (
-                "阶段 1/6：请将 Cube 正对相机并保持静止 2 秒。"
+                "阶段 1/6：请将带 Tag 的 IMU 模块放在画面中央，保持静止 2 秒。"
                 f"静止进度 {self._progress_text(stable_sec / 2.0)}，当前 |w|={gyro_norm:.1f} deg/s。",
                 "ok" if stable_sec > 0.5 else "warn",
             )
@@ -4569,17 +4565,22 @@ class CalibrationGui(QWidget):
                 self.motion_phase_progress = 1.0
                 self._advance_motion_phase()
                 next_text = (
-                    "请缓慢绕 Cube 的 Y 轴来回旋转。"
+                    "请绕绿色 +Y 轴慢速往返，+Y 指向 ID3/bottom。"
                     if axis_name == "X"
-                    else "请缓慢绕 Cube 的 Z 轴来回旋转。"
+                    else "请绕蓝色 +Z 轴慢速往返，+Z 指向 Cube 内。"
                     if axis_name == "Y"
                     else "请做小幅平移 + 三轴组合旋转。"
                 )
                 return f"阶段 {axis_index + 2} 完成。下一步：{next_text}", "ok"
             state = "ok" if dominance >= 0.45 or total_angle_deg < 8.0 else "warn"
             self.motion_phase_progress = progress
+            axis_hint = {
+                "X": "红色 +X，指向 ID2/right",
+                "Y": "绿色 +Y，指向 ID3/bottom",
+                "Z": "蓝色 +Z，指向 Cube 内",
+            }[axis_name]
             return (
-                f"阶段 {axis_index + 2}/6：请缓慢绕 {axis_name} 轴来回旋转 ±30°，不要甩动。"
+                f"阶段 {axis_index + 2}/6：请绕{axis_hint}慢速往返 ±30°，不要甩动。"
                 f"{axis_name}轴累计 {axis_angle_deg:.0f}° / 60°，主导占比 {dominance * 100.0:.0f}%，"
                 f"进度 {self._progress_text(progress)}。",
                 state,
@@ -4683,12 +4684,11 @@ class CalibrationGui(QWidget):
                 wait_text = "一键采集已触发，关键数据已 ready，正在发送开始录制请求。"
             self.tip.set_state(wait_text, "warn")
         else:
-            self.tip.set_state("直连输入在线，原始视频稳定显示。可以点击“一键开始采集”或“开始录制”。", "ok")
+            self.tip.set_state("直连输入在线，原始视频稳定显示。可以点击“一键开始采集”。", "ok")
 
     def closeEvent(self, event) -> None:  # noqa: N802 - Qt API name.
         self.timer.stop()
         self._stop_runtime_nodes()
-        self._stop_sim_node()
         self.bridge.shutdown()
         event.accept()
 
