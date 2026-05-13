@@ -1,0 +1,46 @@
+schema_version: 1
+name: cube_imu_direct_capture
+description: Standard ROS2 capture flow for head-camera observing Cube-mounted IMU.
+
+project:
+  type: ros2_capture
+  package: cube_imu_calibration
+  ros_distro: jazzy
+
+paths:
+  ros_package: cube_imu_calibration
+  ros_config: cube_imu_calibration/config/apriltag_params.yaml
+  output_dir: output_bag
+  downstream_project: /home/wangjh/code/05_cube_pose_imu_calibration
+
+capture:
+  cube_layout: left_hand_5face
+  marker_size_m: 0.030
+  cube_size_m: 0.033
+  image_topic: /camera/image_raw
+  camera_info_topic: /camera/camera_info
+  imu_topic: /imu
+  cube_pose_topic: /cube_pose
+  imu_source: cube_serial
+  serial_port: /dev/ttyACM0
+  serial_baudrate: 2000000
+  serial_protocol_mode: v2.1
+  target_record_duration_sec: 150.0
+  image_rate_hz: 15.0
+  imu_rate_hz: 500.0
+  output_encoding: mono8
+
+quality:
+  min_image_count: 100
+  min_imu_count: 1000
+  min_pose_count: 30
+  min_image_rate_hz: 5.0
+  min_imu_rate_hz: 100.0
+  min_pose_rate_hz: 0.5
+  min_tag_detection_rate: 0.02
+
+handoff:
+  downstream_command:
+    - cd /home/wangjh/code/05_cube_pose_imu_calibration
+    - make check
+    - make run-robust

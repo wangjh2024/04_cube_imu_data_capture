@@ -1,0 +1,88 @@
+# 04 Cube IMU 采集标准流程
+
+本文档定义采集端顺序流。04 负责生成标准数据，05 负责离线外参求解和候选外参互审。
+
+## 0. 工程边界
+
+- ROS2 包：`cube_imu_calibration/`
+- 标准配置：`configs/capture.yaml`
+- ROS 参数：`cube_imu_calibration/config/apriltag_params.yaml`
+- 标准输出：`output_bag/`
+- 下游工程：`/home/wangjh/code/05_cube_pose_imu_calibration`
+
+## 1. 固定顺序
+
+```text
+01 PROJECT   检查工程结构、配置和生成目录
+02 ENV       检查 ROS2 / Python / GUI 依赖
+03 BUILD     构建 cube_imu_calibration
+04 PRECHECK  硬件、串口、图像、CameraInfo、Cube pose 预检
+05 CAPTURE   GUI 一键采集 150s 六阶段动作
+06 CONTRACT  校验 output_bag 数据契约，写 capture_manifest.json
+07 HANDOFF   交给 05 后处理 make check / make run-robust
+```
+
+## 2. 工程检查
+
+```bash
+make check
+make check-env
+```
+
+`make check` 不要求一定存在 `output_bag/`；若要严格检查当前数据集：
+
+```bash
+make data-strict
+```
+
+## 3. 构建
+
+```bash
+source /opt/ros/jazzy/setup.bash
+make build
+source install/setup.bash
+```
+
+## 4. 正式采集
+
+```bash
+make launch-gui
+```
+
+现场按 GUI 六阶段动作执行：
+
+- 静止
+- 绕 Cube X 轴慢速旋转
+- 绕 Cube Y 轴慢速旋转
+- 绕 Cube Z 轴慢速旋转
+- 多面过渡和小平移
+- 小范围 8 字和三轴组合
+
+正式采集只允许 `/imu` 来自 Cube 串口 IMU：`imu_source=cube_serial`。
+
+## 5. 输出验收
+
+```bash
+make check-data
+make capture-manifest
+```
+
+关键指标：
+
+- 图像、IMU、Cube pose 时间戳单调递增
+- `metadata.yaml` 格式为 `cube_imu_direct_dataset_v1`
+- 图像、IMU、pose 数量和频率达到 `configs/capture.yaml` 门槛
+- `tag_detection_rate` 达到采集门槛
+
+## 6. 下游闭环
+
+采集端通过后，在 05 工程执行：
+
+```bash
+cd /home/wangjh/code/05_cube_pose_imu_calibration
+make check
+make run-robust
+make check-review
+```
+
+`make check-release` 仍需多数据集一致性和人工互审通过后才能放行候选外参发布。

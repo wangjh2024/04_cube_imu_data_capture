@@ -1,67 +1,97 @@
 # 04 Cube IMU Data Capture
 
-本仓库按“非 ROS 应用工程”管理。当前目标是把 Cube/IMU 数据采集与标定流程工程化、规范化、标准化：代码入口固定，依赖可复现，数据产物不混入源码，运行顺序可检查。
+本工程是 `05_cube_pose_imu_calibration` 的采集端，负责用头戴相机观测手持
+AprilTag Cube，并同步采集 Cube 上的串口 IMU。标准产物是 `cube_imu_direct_dataset_v1`
+格式的 `output_bag/`，可直接交给 05 工程做 Pose-IMU 外参后处理。
 
-## 当前状态
+本工程按 ROS2 数据采集工程管理，不再把 `.venv` 里的旧 `imu-cube-qt` /
+`imu-cube-calib` 当作标准入口。旧虚拟环境可删除重建，源码入口以
+`cube_imu_calibration/` ROS2 包为准。
 
-当前目录中仍保留了旧 ROS/colcon 产物：
+## 快速运行
 
-- `cube_imu_calibration/`
-- `build/`
-- `install/`
-- `log/`
+```bash
+cd /home/wangjh/code/04_cube_imu_data_capture
+make check
+make build
+make launch-gui
+```
 
-同时，`.venv` 里存在旧的非 ROS 命令入口 `imu-cube-qt` 和 `imu-cube-calib`，但它们指向已经不存在的旧路径 `/home/wangjh/code/05imu_cube_calib`。因此当前标准入口应先恢复为本仓库自己的 Python 包源码，再重新安装虚拟环境。
+采集完成后检查输出契约：
 
-标准非 ROS 源码结构应包含：
+```bash
+make check-data
+make capture-manifest
+```
+
+再交给 05 后处理工程：
+
+```bash
+cd /home/wangjh/code/05_cube_pose_imu_calibration
+make check
+make run-robust
+```
+
+## 标准入口
 
 ```text
-pyproject.toml
-imu_cube_calib/
-  __init__.py
-  cli.py
-  qt_ui.py
-tests/
-scripts/
-docs/
+Makefile                                      # 日常工程入口
+configs/capture.yaml                         # 采集流程和质量门槛
+scripts/check_project.py                     # ROS2 工程、配置和生成目录检查
+scripts/check_capture_output.py              # output_bag 数据契约检查
+scripts/doctor.sh                            # 兼容入口，调用 check_project.py
+docs/STANDARD_FLOW.md                        # 标准采集顺序流
+docs/DATA_CONTRACT.md                        # 04 输出 / 05 输入数据契约
+docs/AGENT_WORKFLOW.md                       # 多智能体角色分工和互审闭环
+docs/DELIVERY_CHECKLIST.md                   # 交付检查清单
+cube_imu_calibration/                        # ROS2 采集包
 ```
 
-## 标准运行顺序
-
-先运行工程体检：
+## 常用命令
 
 ```bash
-cd /home/wangjh/code/04_cube_imu_data_capture
-bash scripts/doctor.sh
+make help           # 查看入口
+make check          # 工程结构、配置和数据契约检查
+make check-env      # ROS2/Python 依赖检查
+make check-data     # 检查 output_bag，缺失时不阻断
+make data-strict    # 严格检查 output_bag，缺失会失败
+make capture-manifest # 写 output_bag/capture_manifest.json
+make build          # colcon build cube_imu_calibration
+make launch-gui     # 启动正式采集 GUI
+make launch-sim     # 启动仿真 GUI
+make status         # 查看 git 状态
 ```
 
-如果体检提示缺少 `pyproject.toml` 或 `imu_cube_calib/`，先把非 ROS 源码恢复到当前仓库根目录。
+## 标准输出
 
-源码恢复后，按固定顺序重建环境并运行：
-
-```bash
-cd /home/wangjh/code/04_cube_imu_data_capture
-rm -rf .venv
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -U pip
-python -m pip install -e ".[vision,qt,dev,mcap]"
-bash scripts/doctor.sh
-imu-cube-qt
+```text
+output_bag/
+├── metadata.yaml
+├── image_timestamps.csv
+├── imu.csv
+├── tag_pose.csv
+├── camera_info.yaml
+└── images/
 ```
 
-命令行标定入口：
+可选检查产物：
 
-```bash
-imu-cube-calib --help
+```text
+output_bag/capture_manifest.json
 ```
 
-## 工程规则
+## 工程边界
 
-- 源码只放在 `imu_cube_calib/`、`scripts/`、`tests/`、`docs/` 等工程目录。
-- 原始采集数据、bag、mcap、CSV、图片帧输出放在 `data/`、`outputs/`、`output_bag/`，默认不进 Git。
-- `build/`、`install/`、`log/` 是生成产物，不作为标准源码维护。
-- 每次改代码后，先跑 `bash scripts/doctor.sh`，再运行 GUI 或命令行。
-- 提交前执行 `git status --short`，确认没有把缓存、构建目录、大体积数据误提交。
+- `04_cube_imu_data_capture`：负责采集、现场预检和数据契约检查。
+- `05_cube_pose_imu_calibration`：负责离线 Pose-IMU 外参求解、质量门槛和候选外参互审。
+- `03cube_imu_clib/04imu_cube_tracker`：实时跟踪消费端，只有外参通过多数据集复核后再同步配置。
 
-更多顺序流见 [docs/PROJECT_FLOW.md](docs/PROJECT_FLOW.md)。
+## 注意事项
+
+- `/imu` 必须来自 Cube 上的串口 IMU，不使用 Orbbec/相机内置 IMU。
+- 正式数据默认使用 `left_hand_5face` Cube：ID0=center、ID1=top、ID2=right、ID3=bottom、ID4=left。
+- GUI 采集默认 150 秒，按静止、X/Y/Z 旋转、多面过渡、小范围 8 字组合动作执行。
+- `build/`、`install/`、`log/`、`output_bag/`、`data/` 是生成或采集产物，默认不提交。
+- 顶层 `.venv` 若仍指向旧路径，只作为历史残留处理，不作为标准入口。
+
+更多细节见 `docs/STANDARD_FLOW.md` 和 `docs/DATA_CONTRACT.md`。
