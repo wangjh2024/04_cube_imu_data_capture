@@ -18,10 +18,10 @@ REQUIRED_PATHS = [
     "README.md",
     "Makefile",
     "configs/capture.yaml",
-    "docs/STANDARD_FLOW.md",
-    "docs/DATA_CONTRACT.md",
-    "docs/AGENT_WORKFLOW.md",
-    "docs/DELIVERY_CHECKLIST.md",
+    "docs/标准采集流程.md",
+    "docs/数据契约.md",
+    "docs/多智能体作业规范.md",
+    "docs/交付检查清单.md",
     "scripts/doctor.sh",
     "scripts/check_project.py",
     "scripts/check_capture_output.py",
@@ -35,7 +35,18 @@ REQUIRED_PATHS = [
 ]
 
 OPTIONAL_IMPORTS = ["cv2", "numpy", "PyQt5", "rclpy", "sensor_msgs", "yaml"]
-GENERATED_DIRS = ["build", "install", "log", "Log", "output_bag", "data", "outputs", ".venv"]
+GENERATED_DIRS = [
+    "build",
+    "install",
+    "log",
+    "Log",
+    "logs",
+    "output_bag",
+    "data",
+    "outputs",
+    ".venv",
+]
+GENERATED_GLOBS = ["output_bag_*"]
 
 
 class Checker:
@@ -119,6 +130,15 @@ def check_generated_dirs(checker: Checker) -> None:
             checker.warn(f"{name}/ exists and is treated as generated/runtime output")
         else:
             checker.ok(f"{name}/ not present")
+    for pattern in GENERATED_GLOBS:
+        matches = sorted(PROJECT_ROOT.glob(pattern))
+        if matches:
+            checker.warn(
+                f"{pattern} exists and is treated as generated/runtime output "
+                f"({len(matches)} dirs)"
+            )
+        else:
+            checker.ok(f"{pattern} not present")
 
     old_entry = PROJECT_ROOT / ".venv" / "bin" / "imu-cube-qt"
     if old_entry.exists():

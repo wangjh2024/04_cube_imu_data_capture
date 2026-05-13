@@ -362,11 +362,14 @@ class DirectRecorder:
 
     @staticmethod
     def _unique_output_path(base_path: str) -> str:
-        expanded = os.path.abspath(os.path.expanduser(base_path or "output_direct"))
-        if not os.path.exists(expanded):
-            return expanded
+        expanded = os.path.abspath(os.path.expanduser(base_path or "output_bag"))
         stamp = time.strftime("%Y%m%d_%H%M%S")
-        return f"{expanded}_{stamp}"
+        candidate = f"{expanded}_{stamp}"
+        suffix = 1
+        while os.path.exists(candidate):
+            candidate = f"{expanded}_{stamp}_{suffix:02d}"
+            suffix += 1
+        return candidate
 
     def start(
         self,
@@ -613,7 +616,7 @@ class RosBridge:
         ).value
         self.bag_path = self.node.declare_parameter("bag_path", "output_bag").value
         self.marker_size = float(self.node.declare_parameter("marker_size", 0.03).value)
-        self.cube_visual_size = float(self.node.declare_parameter("cube_visual_size", 0.033).value)
+        self.cube_visual_size = float(self.node.declare_parameter("cube_visual_size", 0.030).value)
         self.cube_layout = normalize_cube_layout(
             self.node.declare_parameter("cube_layout", CUBE_LAYOUT_NAME).value
         )
@@ -677,7 +680,7 @@ class RosBridge:
         self.enable_cube_detection = bool(
             self.node.declare_parameter("enable_cube_detection", True).value
         )
-        self.pose_csv_path = self.node.declare_parameter("pose_csv_path", "tag_pose.csv").value
+        self.pose_csv_path = self.node.declare_parameter("pose_csv_path", "outputs/tag_pose.csv").value
         self.publish_tf = bool(self.node.declare_parameter("publish_tf", True).value)
 
         self.direct_sensor = DirectSensorClient()
@@ -2030,7 +2033,7 @@ class StatusValue(QLabel):
             "QLabel { padding: 4px 8px; border: 1px solid #d0d5dd; border-radius: 4px; }"
         )
 
-    def set_state(self, text: str, state: str = "neutral") -> None:
+    def set_state(self, text: str, state: str = "neutral", tooltip: str | None = None) -> None:
         colors = {
             "ok": ("#ecfdf3", "#027a48", "#abefc6"),
             "warn": ("#fffaeb", "#b54708", "#fedf89"),
@@ -2039,7 +2042,7 @@ class StatusValue(QLabel):
         }
         bg, fg, border = colors.get(state, colors["neutral"])
         self.setText(text)
-        self.setToolTip(text)
+        self.setToolTip(text if tooltip is None else tooltip)
         self.setStyleSheet(
             "QLabel {"
             f"background: {bg}; color: {fg}; border: 1px solid {border};"
@@ -2551,7 +2554,7 @@ class CalibrationGui(QWidget):
         self.content_splitter = content
 
         left_column = QWidget()
-        left_column.setMinimumWidth(380)
+        left_column.setMinimumWidth(360)
         left_column.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         left_layout = QVBoxLayout(left_column)
         left_layout.setContentsMargins(0, 0, 0, 0)
@@ -2568,8 +2571,8 @@ class CalibrationGui(QWidget):
         center_layout.addWidget(self._image_group(), 1)
 
         right_scroll = QScrollArea()
-        right_scroll.setMinimumWidth(700)
-        right_scroll.setMaximumWidth(1040)
+        right_scroll.setMinimumWidth(760)
+        right_scroll.setMaximumWidth(1400)
         right_scroll.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
         right_scroll.setWidgetResizable(True)
         right_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
@@ -2597,10 +2600,10 @@ class CalibrationGui(QWidget):
     def _fit_initial_window(self) -> None:
         screen = QApplication.primaryScreen()
         if screen is None:
-            self.resize(1720, 900)
+            self.resize(1800, 920)
         else:
             geometry = screen.availableGeometry()
-            width = min(max(1720, int(geometry.width() * 0.96)), geometry.width() - 20)
+            width = min(max(1700, int(geometry.width() * 0.96)), geometry.width() - 20)
             height = min(max(760, int(geometry.height() * 0.92)), geometry.height() - 40)
             self.resize(width, height)
             self.move(
@@ -2612,9 +2615,9 @@ class CalibrationGui(QWidget):
     def _set_initial_splitter_sizes(self) -> None:
         width = max(1, self.content_splitter.width())
         self._apply_content_splitter_sizes([
-            int(width * 0.24),
-            int(width * 0.32),
-            int(width * 0.44),
+            int(width * 0.22),
+            int(width * 0.30),
+            int(width * 0.48),
         ])
 
     def _on_content_splitter_moved(self, position: int, index: int) -> None:
@@ -2640,7 +2643,7 @@ class CalibrationGui(QWidget):
         sizes = self._content_splitter_sizes or self.content_splitter.sizes()
         if len(sizes) != 3 or target_total <= 0:
             return sizes
-        right = min(max(sizes[2], 700), 1040)
+        right = min(max(sizes[2], 760), 1400)
         remaining = max(2, target_total - right)
         left_center_total = max(1, sizes[0] + sizes[1])
         left = max(1, int(round(remaining * sizes[0] / left_center_total)))
@@ -2743,6 +2746,26 @@ class CalibrationGui(QWidget):
                 background: #f2f4f7;
                 border-color: #d0d5dd;
             }
+            QPushButton#PrimaryAction {
+                background: #175cd3;
+                color: #ffffff;
+                border-color: #175cd3;
+                font-weight: 700;
+            }
+            QPushButton#PrimaryAction:hover {
+                background: #1849a9;
+                border-color: #1849a9;
+            }
+            QPushButton#DangerAction {
+                background: #fef3f2;
+                color: #b42318;
+                border-color: #fecdca;
+                font-weight: 700;
+            }
+            QPushButton#DangerAction:hover {
+                background: #fee4e2;
+                border-color: #fda29b;
+            }
             QProgressBar {
                 background: #ffffff;
                 color: #101828;
@@ -2779,6 +2802,33 @@ class CalibrationGui(QWidget):
         widget.setMinimumWidth(0)
         widget.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         return widget
+
+    @staticmethod
+    def _fit_right_button(button: QPushButton) -> QPushButton:
+        button.setMinimumWidth(0)
+        button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        return button
+
+    @staticmethod
+    def _compact_text(text: str, limit: int = 96) -> str:
+        normalized = " ".join(str(text).split())
+        if len(normalized) <= limit:
+            return normalized
+        head = max(16, limit // 2 - 4)
+        tail = max(16, limit - head - 5)
+        return f"{normalized[:head]} ... {normalized[-tail:]}"
+
+    @staticmethod
+    def _compact_path(path: str, limit: int = 78) -> str:
+        normalized = os.path.normpath(str(path))
+        if len(normalized) <= limit:
+            return normalized
+        parts = [part for part in normalized.split(os.sep) if part]
+        for keep in range(min(4, len(parts)), 0, -1):
+            candidate = f".../{'/'.join(parts[-keep:])}"
+            if len(candidate) <= limit:
+                return candidate
+        return CalibrationGui._compact_text(normalized, limit)
 
     def _settings_group(self) -> QGroupBox:
         group = QGroupBox("采集设置")
@@ -2823,7 +2873,7 @@ class CalibrationGui(QWidget):
             ("图像输入", self.image_topic_edit),
             ("IMU 输入", self.imu_topic_edit),
             ("CameraInfo 输入", self.camera_info_topic_edit),
-            ("输出目录", self.bag_path_edit),
+            ("输出前缀", self.bag_path_edit),
             ("动作计划时长", self.duration_spin),
             ("相机 frame", self.camera_frame_edit),
             ("IMU frame", self.imu_frame_edit),
@@ -2888,35 +2938,49 @@ class CalibrationGui(QWidget):
         layout = QGridLayout(group)
 
         self.runtime_state = StatusValue("直连采集未启动")
+        self.runtime_state.setWordWrap(True)
+        self.runtime_state.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
         layout.addWidget(QLabel("采集状态"), 0, 0)
         layout.addWidget(self.runtime_state, 0, 1)
 
-        runtime_buttons = QHBoxLayout()
+        runtime_buttons = QGridLayout()
+        runtime_buttons.setHorizontalSpacing(8)
         self.prepare_button = QPushButton("启动直连采集")
         self.one_click_button = QPushButton("一键开始采集")
         self.stop_runtime_button = QPushButton("停止直连采集")
+        self.one_click_button.setObjectName("PrimaryAction")
+        self.stop_runtime_button.setObjectName("DangerAction")
         self.prepare_button.clicked.connect(self._start_runtime_nodes)
         self.one_click_button.clicked.connect(self._one_click_record)
         self.stop_runtime_button.clicked.connect(self._stop_runtime_nodes)
-        runtime_buttons.addWidget(self.prepare_button)
-        runtime_buttons.addWidget(self.one_click_button)
-        runtime_buttons.addWidget(self.stop_runtime_button)
+        for column, button in enumerate((
+            self.prepare_button,
+            self.one_click_button,
+            self.stop_runtime_button,
+        )):
+            runtime_buttons.addWidget(self._fit_right_button(button), 0, column)
+            runtime_buttons.setColumnStretch(column, 1)
         layout.addLayout(runtime_buttons, 1, 0, 1, 2)
 
         self.sim_state = StatusValue("直连硬件模式下不使用 ROS 仿真输入")
+        self.sim_state.setWordWrap(True)
+        self.sim_state.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
         layout.addWidget(QLabel("仿真状态"), 2, 0)
         layout.addWidget(self.sim_state, 2, 1)
 
-        sim_buttons = QHBoxLayout()
+        sim_buttons = QGridLayout()
+        sim_buttons.setHorizontalSpacing(8)
         self.start_sim_button = QPushButton("启动仿真测试")
         self.stop_sim_button = QPushButton("停止仿真测试")
         self.start_sim_button.setEnabled(False)
         self.stop_sim_button.setEnabled(False)
         self.start_sim_button.clicked.connect(self._start_sim_node)
         self.stop_sim_button.clicked.connect(self._stop_sim_node)
-        sim_buttons.addWidget(self.start_sim_button)
-        sim_buttons.addWidget(self.stop_sim_button)
+        for column, button in enumerate((self.start_sim_button, self.stop_sim_button)):
+            sim_buttons.addWidget(self._fit_right_button(button), 0, column)
+            sim_buttons.setColumnStretch(column, 1)
         layout.addLayout(sim_buttons, 3, 0, 1, 2)
+        layout.setColumnStretch(1, 1)
         return group
 
     def _node_group(self) -> QGroupBox:
@@ -3012,7 +3076,7 @@ class CalibrationGui(QWidget):
     def _preview_source_label(self) -> str:
         return "直连硬件"
 
-    def _bag_path_for_display(self, status) -> tuple[str, str]:
+    def _bag_path_for_display(self, status) -> tuple[str, str, str]:
         raw_path = ""
         recording = False
         if status is not None and getattr(status, "bag_path", ""):
@@ -3023,11 +3087,13 @@ class CalibrationGui(QWidget):
 
         expanded = os.path.expanduser(str(raw_path))
         absolute = os.path.abspath(expanded)
+        compact = self._compact_path(absolute)
         if recording:
-            return absolute, "ok"
+            return compact, "ok", absolute
         return (
-            f"{absolute}  （开始录制时创建；若目录已存在会自动追加时间戳）",
+            f"{compact}；开始录制时自动建目录",
             "neutral",
+            f"{absolute}  （开始录制时创建；若目录已存在会自动追加时间戳）",
         )
 
     def _action_schedule(self, target_duration_sec: float) -> list[tuple[int, float, float, str, str]]:
@@ -3358,7 +3424,11 @@ class CalibrationGui(QWidget):
                 f"未录制；开始后按 {fmt_seconds(target_duration)} 六段流程动作，"
                 "每段先做姿态检测，检测通过后自动进入正式采集"
             )
-            self.values["action_time"].set_state(self.current_action_time_text, "neutral")
+            self.values["action_time"].set_state(
+                f"未录制；{fmt_seconds(target_duration)} 六段流程；每段先检测再采集",
+                "neutral",
+                self.current_action_time_text,
+            )
             self._update_phase_progress(schedule, elapsed, False)
             return
         self.recording_wall_start = time.monotonic() - elapsed
@@ -3370,7 +3440,11 @@ class CalibrationGui(QWidget):
             self.current_action_time_text = (
                 f"六段正式采集已完成；数据集已录 {fmt_seconds(elapsed)}，可以点击停止录制保存数据"
             )
-            self.values["action_time"].set_state(self.current_action_time_text, "ok")
+            self.values["action_time"].set_state(
+                f"六段完成；已录 {fmt_seconds(elapsed)}；可停止保存",
+                "ok",
+                self.current_action_time_text,
+            )
             return
 
         index = min(self.phase_workflow_index, len(schedule) - 1)
@@ -3411,7 +3485,12 @@ class CalibrationGui(QWidget):
             f"阶段状态：{phase_mode}；{detail}\n"
             f"操作：{action}"
         )
-        self.values["action_time"].set_state(self.current_action_time_text, state)
+        action_summary = (
+            f"阶段 {index + 1}/6：{title}；{phase_mode}\n"
+            f"已录 {fmt_seconds(elapsed)}；累计 {fmt_seconds(collected_sec)}/{fmt_seconds(target_duration)}；"
+            f"剩余 {fmt_seconds(total_remaining)}"
+        )
+        self.values["action_time"].set_state(action_summary, state, self.current_action_time_text)
 
     def _start_sim_node(self) -> None:
         self.bridge.last_service_message = "直连硬件模式不再通过 ROS 仿真话题采集"
@@ -3605,8 +3684,12 @@ class CalibrationGui(QWidget):
         layout.addWidget(QLabel("分段采集"), 6, 0)
         layout.addWidget(self._phase_progress_widget(), 6, 1)
         self._row(layout, 7, "服务提示", "service_message")
-        for key in ("bag_save_path", "action_time", "service_message"):
+        for key in ("bag_save_path", "service_message"):
             self.values[key].setWordWrap(True)
+            self.values[key].setMaximumHeight(58)
+        self.values["action_time"].setWordWrap(True)
+        self.values["action_time"].setMinimumHeight(58)
+        self.values["action_time"].setMaximumHeight(76)
 
         label = QLabel("正式进度")
         self.progress_bar = QProgressBar()
@@ -3616,16 +3699,23 @@ class CalibrationGui(QWidget):
         layout.addWidget(label, 8, 0)
         layout.addWidget(self.progress_bar, 8, 1)
 
-        buttons = QHBoxLayout()
+        buttons = QGridLayout()
+        buttons.setHorizontalSpacing(8)
         self.start_button = QPushButton("开始录制")
         self.phase_collect_button = QPushButton("录制开始后先检测")
         self.stop_button = QPushButton("停止录制")
+        self.start_button.setObjectName("PrimaryAction")
+        self.stop_button.setObjectName("DangerAction")
         self.start_button.clicked.connect(self._manual_start_recording)
         self.phase_collect_button.clicked.connect(self._start_current_phase_collection)
         self.stop_button.clicked.connect(self._manual_stop_recording)
-        buttons.addWidget(self.start_button)
-        buttons.addWidget(self.phase_collect_button)
-        buttons.addWidget(self.stop_button)
+        for column, button in enumerate((
+            self.start_button,
+            self.phase_collect_button,
+            self.stop_button,
+        )):
+            buttons.addWidget(self._fit_right_button(button), 0, column)
+            buttons.setColumnStretch(column, 1)
         layout.addLayout(buttons, 9, 0, 1, 2)
 
         self.motion_hint = StatusValue(self.current_motion_hint)
@@ -3637,6 +3727,7 @@ class CalibrationGui(QWidget):
         self.motion_guide = MotionGuideWidget()
         layout.addWidget(QLabel("动作示意"), 11, 0)
         layout.addWidget(self.motion_guide, 11, 1)
+        layout.setColumnStretch(1, 1)
         return group
 
     def _phase_progress_widget(self) -> QWidget:
@@ -4172,15 +4263,19 @@ class CalibrationGui(QWidget):
                     self._make_preview_pixmap(self.bridge.last_image, source, age)
                 )
                 self._last_preview_paint_wall = now
-            self.image_info.set_state(
+            image_detail = (
                 f"{source}  {self.bridge.last_image_info}  "
                 f"capture={image_rate:.1f}Hz  "
                 f"preview={self.bridge.image_preview_rate_hz:.1f}Hz  "
                 f"detect={self.bridge.tag_detection_rate_hz:.1f}Hz@{self.bridge.tag_detection_scale:.2f}x  "
                 f"display={self.bridge.gui_display_rate_hz:.1f}Hz@{self.bridge.preview_scale:.2f}x  "
                 f"cube_pose={self.bridge.cube_pose_rate_hz():.1f}Hz  "
-                f"录制预览  延迟 {age:.2f}s",
+                f"录制预览  延迟 {age:.2f}s"
+            )
+            self.image_info.set_state(
+                f"{source}  图像 {image_rate:.1f}Hz  Pose {self.bridge.cube_pose_rate_hz():.1f}Hz  延迟 {age:.2f}s",
                 "ok",
+                image_detail,
             )
 
         imu_stale = not self.bridge.imu_samples or now - self.bridge.last_imu_wall > 2.0
@@ -4198,20 +4293,32 @@ class CalibrationGui(QWidget):
             self.imu_accel_value.set_state(self.bridge.last_imu_accel_g_info, "ok")
             self.imu_gyro_value.set_state(self.bridge.last_imu_gyro_deg_info, "ok")
             self.imu_norm_value.set_state(self.bridge.last_imu_norm_info, "ok")
+            imu_detail = (
+                f"{source}  {self.bridge.last_imu_info}  hz={imu_rate:.1f}  延迟 {age:.2f}s"
+            )
             self.imu_info.set_state(
-                f"{source}  {self.bridge.last_imu_info}  "
-                f"hz={imu_rate:.1f}  延迟 {age:.2f}s",
+                f"{source}  IMU {imu_rate:.1f}Hz  延迟 {age:.2f}s",
                 "ok",
+                imu_detail,
             )
 
     def _update_recorder(self) -> None:
         status = self.bridge.last_status
         stale = status is None or time.monotonic() - self.bridge.last_status_wall > 3.0
-        bag_save_path, bag_save_state = self._bag_path_for_display(status)
+        bag_save_path, bag_save_state, bag_save_tooltip = self._bag_path_for_display(status)
         if stale:
             self.values["recording"].set_state("等待直连记录器状态", "warn")
-            self.values["bag_path"].set_state(self.bridge.bag_path or "-", "neutral")
-            self.values["bag_save_path"].set_state(bag_save_path, bag_save_state)
+            bag_path = self.bridge.bag_path or "-"
+            self.values["bag_path"].set_state(
+                self._compact_path(bag_path),
+                "neutral",
+                os.path.abspath(os.path.expanduser(str(bag_path))),
+            )
+            self.values["bag_save_path"].set_state(
+                bag_save_path,
+                bag_save_state,
+                bag_save_tooltip,
+            )
             self.values["message_counts"].set_state("-", "neutral")
             self.values["record_time"].set_state("-", "neutral")
         else:
@@ -4224,8 +4331,17 @@ class CalibrationGui(QWidget):
                 "停止中：正在关闭数据集" if stop_pending else "录制中" if status.recording else "空闲",
                 "warn" if stop_pending else "ok" if status.recording else "warn",
             )
-            self.values["bag_path"].set_state(status.bag_path or "-", "neutral")
-            self.values["bag_save_path"].set_state(bag_save_path, bag_save_state)
+            status_bag_path = status.bag_path or "-"
+            self.values["bag_path"].set_state(
+                self._compact_path(status_bag_path),
+                "neutral",
+                os.path.abspath(os.path.expanduser(str(status_bag_path))),
+            )
+            self.values["bag_save_path"].set_state(
+                bag_save_path,
+                bag_save_state,
+                bag_save_tooltip,
+            )
             cube_pose_count = int(getattr(status, "cube_pose_count", 0))
             cube_pose_status_count = int(getattr(status, "cube_pose_status_count", 0))
             elapsed_for_rate = max(float(status.elapsed_sec), 1e-6)
@@ -4255,7 +4371,11 @@ class CalibrationGui(QWidget):
                 self.values["record_time"].set_state(f"上次 {status.elapsed_sec:.1f}s", "neutral")
         self._update_action_timing(None if stale else status)
         self._update_formal_collection_progress(None if stale else status)
-        self.values["service_message"].set_state(self.bridge.last_service_message, "neutral")
+        self.values["service_message"].set_state(
+            self._compact_text(self.bridge.last_service_message, 120),
+            "neutral",
+            self.bridge.last_service_message,
+        )
 
     def _reset_motion_guide(self, phase_mode: str = "detect") -> None:
         self.motion_phase = 0

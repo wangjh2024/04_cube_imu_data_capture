@@ -3,6 +3,7 @@
 PYTHON ?= python3
 DATASET ?= output_bag
 PACKAGE ?= cube_imu_calibration
+COLCON_LOG_BASE ?= logs/colcon
 
 help:
 	@printf "%s\n" "04 Cube IMU Data Capture"
@@ -11,8 +12,8 @@ help:
 	@printf "%s\n" "  make check            Run project/config checks and non-strict data check"
 	@printf "%s\n" "  make check-project    Check ROS2 package, docs, configs, and generated dirs"
 	@printf "%s\n" "  make check-env        Check ROS2/Python import environment"
-	@printf "%s\n" "  make check-data       Validate DATASET=output_bag if present"
-	@printf "%s\n" "  make data-strict      Validate DATASET=output_bag and fail if missing"
+	@printf "%s\n" "  make check-data       Validate DATASET if present; formal datasets use output_bag_YYYYMMDD_HHMMSS"
+	@printf "%s\n" "  make data-strict      Validate DATASET and fail if missing"
 	@printf "%s\n" "  make capture-manifest Write DATASET/capture_manifest.json"
 	@printf "%s\n" "  make build            colcon build cube_imu_calibration"
 	@printf "%s\n" "  make launch-gui       Launch formal capture GUI"
@@ -37,7 +38,7 @@ capture-manifest:
 	$(PYTHON) scripts/check_capture_output.py --dataset $(DATASET) --write-manifest
 
 build:
-	colcon build --packages-select $(PACKAGE) --cmake-args -DCMAKE_BUILD_TYPE=Release
+	colcon --log-base $(COLCON_LOG_BASE) build --packages-select $(PACKAGE) --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 launch-gui:
 	bash -lc 'source install/setup.bash && ros2 launch $(PACKAGE) gui_launch.py'

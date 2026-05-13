@@ -10,13 +10,20 @@ project:
 paths:
   ros_package: cube_imu_calibration
   ros_config: cube_imu_calibration/config/apriltag_params.yaml
+  # 采集输出采用时间戳目录：output_bag_YYYYMMDD_HHMMSS。
+  # 这里的 output_bag 只作为命名前缀，不作为正式数据集目录名长期使用。
   output_dir: output_bag
   downstream_project: /home/wangjh/code/05_cube_pose_imu_calibration
 
 capture:
+  # Cube 模板必须与打印纸一致：
+  # AprilTag 36h11 Cube - Left Hand Cube，ID 布局为
+  # Center=ID0, Top=ID1, Right=ID2, Bottom=ID3, Left=ID4。
   cube_layout: left_hand_5face
+  # AprilTag 黑色外框边长，照片模板标注为 30mm。
   marker_size_m: 0.030
-  cube_size_m: 0.033
+  # 折成立方体后的 Cube 外边长；当前实物确认也是 30mm。
+  cube_size_m: 0.030
   image_topic: /camera/image_raw
   camera_info_topic: /camera/camera_info
   imu_topic: /imu

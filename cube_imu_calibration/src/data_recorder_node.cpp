@@ -185,9 +185,16 @@ private:
       resolved = std::filesystem::absolute(resolved);
     }
 
-    if (std::filesystem::exists(resolved)) {
-      resolved += "_" + makeTimestampSuffix();
+    resolved += "_" + makeTimestampSuffix();
+    std::filesystem::path candidate = resolved;
+    int suffix = 1;
+    while (std::filesystem::exists(candidate)) {
+      std::ostringstream oss;
+      oss << resolved.string() << "_" << std::setw(2) << std::setfill('0') << suffix;
+      candidate = oss.str();
+      ++suffix;
     }
+    resolved = candidate;
 
     const auto parent = resolved.parent_path();
     if (!parent.empty() && !std::filesystem::exists(parent)) {

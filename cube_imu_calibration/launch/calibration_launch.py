@@ -80,14 +80,14 @@ def generate_launch_description():
         DeclareLaunchArgument("image_preview_rate_hz", default_value="5.0"),
         DeclareLaunchArgument("enable_cube_detection", default_value="true"),
         DeclareLaunchArgument("marker_size", default_value="0.030"),
-        DeclareLaunchArgument("cube_visual_size", default_value="0.033"),
+        DeclareLaunchArgument("cube_visual_size", default_value="0.030"),
         DeclareLaunchArgument("cube_layout", default_value="left_hand_5face"),
         DeclareLaunchArgument("tag_detection_rate_hz", default_value="15.0"),
         DeclareLaunchArgument("tag_detection_scale", default_value="0.5"),
         DeclareLaunchArgument("preview_scale", default_value="0.5"),
         DeclareLaunchArgument("gui_display_rate_hz", default_value="5.0"),
         DeclareLaunchArgument("draw_preview_overlay", default_value="true"),
-        DeclareLaunchArgument("pose_csv_path", default_value="tag_pose.csv"),
+        DeclareLaunchArgument("pose_csv_path", default_value="outputs/tag_pose.csv"),
 
         Node(
             package="cube_imu_calibration",

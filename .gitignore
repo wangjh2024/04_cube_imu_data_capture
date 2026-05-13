@@ -12,6 +12,7 @@ build/
 install/
 log/
 Log/
+logs/
 dist/
 *.egg-info/
 outputs/

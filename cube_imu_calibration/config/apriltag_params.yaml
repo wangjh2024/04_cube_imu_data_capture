@@ -14,16 +14,16 @@ calibration_gui:
 
     enable_cube_detection: true
 
-    # Measured AprilTag black border side length in meters.
+    # AprilTag 黑色外框边长，必须与打印模板一致；当前模板标注为 30mm。
     marker_size: 0.030
-    # Measured Cube side length in meters. Current recorded data fits about 0.033 m;
-    # replace this with caliper measurement of the folded Cube side if different.
-    cube_visual_size: 0.033
-    # Confirmed template: "AprilTag 36h11 Cube - Left Hand Cube".
-    # Layout: Center=ID0, Top=ID1, Right=ID2, Bottom=ID3, Left=ID4.
+    # 折成立方体后的 Cube 外边长；当前实物确认也是 30mm。
+    cube_visual_size: 0.030
+    # 已确认模板："AprilTag 36h11 Cube - Left Hand Cube"。
+    # ID 布局：Center=ID0, Top=ID1, Right=ID2, Bottom=ID3, Left=ID4。
+    # 打印要求：100% 原始比例打印，不要选择“适应页面/缩放打印”。
     cube_layout: left_hand_5face
 
-    # -1 accepts the printed Cube face IDs 0-4 and converts each face to cube_link.
+    # -1 表示接受打印 Cube 上的 ID0-4，并按上面的五面布局转换到 cube_link。
     target_tag_id: -1
     dictionary: DICT_APRILTAG_36h11
 
@@ -58,9 +58,9 @@ calibration_gui:
     draw_preview_overlay: true
     publish_tf: true
 
-    # CSV pose log:
-    # timestamp,tx,ty,tz,qx,qy,qz,qw,tag_count,reproj_error,tag_ids for T_camera_cube.
-    pose_csv_path: tag_pose.csv
+    # GUI 预览态 CubePose CSV，未正式录制时写入 outputs/。
+    # 正式录制开始后会切换到本次数据集目录 output_bag_YYYYMMDD_HHMMSS/tag_pose.csv。
+    pose_csv_path: outputs/tag_pose.csv
 
 data_recorder_node:
   ros__parameters:
@@ -69,6 +69,8 @@ data_recorder_node:
     camera_info_topic: /camera/camera_info
     cube_pose_topic: /cube_pose
     cube_pose_status_topic: /cube_pose_status
+    # 数据集目录前缀。正式录制时会自动生成 output_bag_YYYYMMDD_HHMMSS，
+    # 避免覆盖旧数据，也方便按采集时间追溯。
     bag_path: output_bag
     storage_id: sqlite3
     start_recording: false
