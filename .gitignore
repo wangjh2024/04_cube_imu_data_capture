@@ -16,6 +16,7 @@ dist/
 *.egg-info/
 outputs/
 output_bag/
+output_bag_*/
 data/
 examples/synthetic_data/
 
@@ -29,3 +30,5 @@ tag_pose.csv
 imu.csv
 camera_info.yaml
 image_timestamps.csv
+metadata.yaml
+frame_*.pgm

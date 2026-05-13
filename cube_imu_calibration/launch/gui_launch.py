@@ -63,7 +63,7 @@ def generate_launch_description():
         DeclareLaunchArgument("cube_layout", default_value="left_hand_5face"),
         DeclareLaunchArgument("tag_detection_rate_hz", default_value="15.0"),
         DeclareLaunchArgument("tag_detection_scale", default_value="0.5"),
-        DeclareLaunchArgument("preview_scale", default_value="0.5"),
+        DeclareLaunchArgument("preview_scale", default_value="1.0"),
         DeclareLaunchArgument("gui_display_rate_hz", default_value="5.0"),
         DeclareLaunchArgument("draw_preview_overlay", default_value="true"),
         DeclareLaunchArgument("pose_csv_path", default_value="tag_pose.csv"),

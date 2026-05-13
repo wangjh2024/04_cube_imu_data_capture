@@ -667,7 +667,7 @@ class RosBridge:
         self.tag_detection_scale = float(
             self.node.declare_parameter("tag_detection_scale", 0.5).value
         )
-        self.preview_scale = float(self.node.declare_parameter("preview_scale", 0.5).value)
+        self.preview_scale = float(self.node.declare_parameter("preview_scale", 1.0).value)
         self.draw_preview_overlay = bool(
             self.node.declare_parameter("draw_preview_overlay", True).value
         )
@@ -2039,12 +2039,21 @@ class StatusValue(QLabel):
         }
         bg, fg, border = colors.get(state, colors["neutral"])
         self.setText(text)
+        self.setToolTip(text)
         self.setStyleSheet(
             "QLabel {"
             f"background: {bg}; color: {fg}; border: 1px solid {border};"
             "border-radius: 4px; padding: 4px 8px;"
             "}"
         )
+
+
+class StablePreviewLabel(QLabel):
+    def sizeHint(self):  # noqa: N802 - Qt override name.
+        return self.minimumSize()
+
+    def minimumSizeHint(self):  # noqa: N802 - Qt override name.
+        return self.minimumSize()
 
 
 class ImuPlotWidget(QWidget):
@@ -2508,6 +2517,9 @@ class CalibrationGui(QWidget):
         self._preview_cache_key = None
         self._preview_cache_pixmap = None
         self._last_preview_paint_wall = 0.0
+        self._content_splitter_sizes = []
+        self._content_splitter_applying = False
+        self._content_splitter_restore_pending = False
         self._apply_light_style()
         self._build_ui()
         self._fit_initial_window()
@@ -2535,9 +2547,12 @@ class CalibrationGui(QWidget):
 
         content = QSplitter(Qt.Horizontal, self)
         content.setChildrenCollapsible(False)
+        content.splitterMoved.connect(self._on_content_splitter_moved)
         self.content_splitter = content
 
         left_column = QWidget()
+        left_column.setMinimumWidth(380)
+        left_column.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         left_layout = QVBoxLayout(left_column)
         left_layout.setContentsMargins(0, 0, 0, 0)
         left_layout.setSpacing(10)
@@ -2545,15 +2560,22 @@ class CalibrationGui(QWidget):
         left_layout.addWidget(self._topic_group(), 0)
 
         center_column = QWidget()
+        center_column.setMinimumWidth(460)
+        center_column.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         center_layout = QVBoxLayout(center_column)
         center_layout.setContentsMargins(0, 0, 0, 0)
         center_layout.setSpacing(10)
         center_layout.addWidget(self._image_group(), 1)
 
         right_scroll = QScrollArea()
+        right_scroll.setMinimumWidth(700)
+        right_scroll.setMaximumWidth(1040)
+        right_scroll.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Expanding)
         right_scroll.setWidgetResizable(True)
+        right_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         right_scroll.setFrameShape(QFrame.NoFrame)
         right_column = QWidget()
+        right_column.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Expanding)
         right_layout = QVBoxLayout(right_column)
         right_layout.setContentsMargins(0, 0, 0, 0)
         right_layout.setSpacing(10)
@@ -2568,17 +2590,17 @@ class CalibrationGui(QWidget):
         content.addWidget(center_column)
         content.addWidget(right_scroll)
         content.setStretchFactor(0, 3)
-        content.setStretchFactor(1, 3)
-        content.setStretchFactor(2, 5)
+        content.setStretchFactor(1, 4)
+        content.setStretchFactor(2, 0)
         outer.addWidget(content, 1)
 
     def _fit_initial_window(self) -> None:
         screen = QApplication.primaryScreen()
         if screen is None:
-            self.resize(1500, 900)
+            self.resize(1720, 900)
         else:
             geometry = screen.availableGeometry()
-            width = min(max(1280, int(geometry.width() * 0.96)), geometry.width() - 20)
+            width = min(max(1720, int(geometry.width() * 0.96)), geometry.width() - 20)
             height = min(max(760, int(geometry.height() * 0.92)), geometry.height() - 40)
             self.resize(width, height)
             self.move(
@@ -2589,11 +2611,75 @@ class CalibrationGui(QWidget):
 
     def _set_initial_splitter_sizes(self) -> None:
         width = max(1, self.content_splitter.width())
-        self.content_splitter.setSizes([
-            int(width * 0.25),
-            int(width * 0.30),
-            int(width * 0.45),
+        self._apply_content_splitter_sizes([
+            int(width * 0.24),
+            int(width * 0.32),
+            int(width * 0.44),
         ])
+
+    def _on_content_splitter_moved(self, position: int, index: int) -> None:
+        del position, index
+        if not self._content_splitter_applying:
+            self._remember_content_splitter_sizes()
+
+    def _remember_content_splitter_sizes(self) -> None:
+        sizes = self.content_splitter.sizes()
+        if len(sizes) == 3 and sum(sizes) > 0:
+            self._content_splitter_sizes = sizes
+
+    def _apply_content_splitter_sizes(self, sizes: list[int], remember: bool = True) -> None:
+        self._content_splitter_applying = True
+        try:
+            self.content_splitter.setSizes(sizes)
+        finally:
+            self._content_splitter_applying = False
+        if remember:
+            self._remember_content_splitter_sizes()
+
+    def _splitter_sizes_for_total(self, target_total: int) -> list[int]:
+        sizes = self._content_splitter_sizes or self.content_splitter.sizes()
+        if len(sizes) != 3 or target_total <= 0:
+            return sizes
+        right = min(max(sizes[2], 700), 1040)
+        remaining = max(2, target_total - right)
+        left_center_total = max(1, sizes[0] + sizes[1])
+        left = max(1, int(round(remaining * sizes[0] / left_center_total)))
+        center = max(1, remaining - left)
+        return [left, center, right]
+
+    def _resize_content_splitter_for_window(self) -> None:
+        if self._content_splitter_applying:
+            return
+        target_total = sum(self.content_splitter.sizes())
+        if target_total <= 0:
+            return
+        self._apply_content_splitter_sizes(
+            self._splitter_sizes_for_total(target_total),
+            remember=True,
+        )
+
+    def _restore_content_splitter_after_refresh(self) -> None:
+        self._content_splitter_restore_pending = False
+        if self._content_splitter_applying or not self._content_splitter_sizes:
+            return
+        current = self.content_splitter.sizes()
+        if len(current) != 3:
+            return
+        if abs(sum(current) - sum(self._content_splitter_sizes)) > 2:
+            return
+        if any(abs(left - right) > 1 for left, right in zip(current, self._content_splitter_sizes)):
+            self._apply_content_splitter_sizes(self._content_splitter_sizes, remember=False)
+
+    def _schedule_content_splitter_restore(self) -> None:
+        if self._content_splitter_restore_pending:
+            return
+        self._content_splitter_restore_pending = True
+        QTimer.singleShot(0, self._restore_content_splitter_after_refresh)
+
+    def resizeEvent(self, event) -> None:  # noqa: N802 - Qt override name.
+        super().resizeEvent(event)
+        if hasattr(self, "content_splitter"):
+            QTimer.singleShot(0, self._resize_content_splitter_for_window)
 
     def _apply_light_style(self) -> None:
         self.setStyleSheet(
@@ -2681,11 +2767,18 @@ class CalibrationGui(QWidget):
 
     def _row(self, layout: QGridLayout, row: int, name: str, key: str) -> None:
         label = QLabel(name)
-        label.setMinimumWidth(150)
+        label.setMinimumWidth(112)
         value = StatusValue()
+        value.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
         layout.addWidget(label, row, 0)
         layout.addWidget(value, row, 1)
         self.values[key] = value
+
+    @staticmethod
+    def _fit_right_field(widget: QWidget) -> QWidget:
+        widget.setMinimumWidth(0)
+        widget.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        return widget
 
     def _settings_group(self) -> QGroupBox:
         group = QGroupBox("采集设置")
@@ -2694,18 +2787,30 @@ class CalibrationGui(QWidget):
         self.image_topic_edit = QLineEdit(f"Orbbec SDK 直连 1280x720 mono8 >= {MIN_RECORD_IMAGE_RATE_HZ:.0f}Hz")
         self.imu_topic_edit = QLineEdit(f"Cube 串口 IMU 直连 >= {MIN_RECORD_IMU_RATE_HZ:.0f}Hz")
         self.camera_info_topic_edit = QLineEdit("Orbbec SDK CameraInfo 直读")
-        for widget in (self.image_topic_edit, self.imu_topic_edit, self.camera_info_topic_edit):
-            widget.setReadOnly(True)
         self.bag_path_edit = QLineEdit(self.bridge.bag_path)
         self.camera_frame_edit = QLineEdit(self.bridge.camera_frame)
         self.imu_frame_edit = QLineEdit(self.bridge.imu_frame)
         self.cube_layout_edit = QLineEdit(f"{CUBE_LAYOUT_LABEL} ({CUBE_LAYOUT_NAME})")
+        self.imu_source_edit = QLineEdit("cube_serial (Cube 串口 IMU)")
+        self.serial_port_edit = QLineEdit(self.bridge.serial_port)
+        for widget in (
+            self.image_topic_edit,
+            self.imu_topic_edit,
+            self.camera_info_topic_edit,
+            self.bag_path_edit,
+            self.camera_frame_edit,
+            self.imu_frame_edit,
+            self.cube_layout_edit,
+            self.imu_source_edit,
+            self.serial_port_edit,
+        ):
+            self._fit_right_field(widget)
+        for widget in (self.image_topic_edit, self.imu_topic_edit, self.camera_info_topic_edit):
+            widget.setReadOnly(True)
         self.cube_layout_edit.setReadOnly(True)
         self.cube_layout_edit.setToolTip("模板标题应为 AprilTag 36h11 Cube - Left Hand Cube；ID 布局为 0=center, 1=top, 2=right, 3=bottom, 4=left。")
-        self.imu_source_edit = QLineEdit("cube_serial (Cube 串口 IMU)")
         self.imu_source_edit.setReadOnly(True)
         self.imu_source_edit.setToolTip("本采集流程只录制 Cube 上的串口 IMU；Orbbec 相机内置 IMU 不用于这组数据。")
-        self.serial_port_edit = QLineEdit(self.bridge.serial_port)
 
         self.duration_spin = QDoubleSpinBox()
         self.duration_spin.setRange(0.0, 3600.0)
@@ -2729,22 +2834,25 @@ class CalibrationGui(QWidget):
         for row, (name, widget) in enumerate(rows):
             layout.addWidget(QLabel(name), row, 0)
             layout.addWidget(widget, row, 1)
+        layout.setColumnStretch(1, 1)
         return group
 
     def _image_group(self) -> QGroupBox:
         group = QGroupBox("视觉模块 / 实拍相机画面")
         layout = QVBoxLayout(group)
 
-        self.image_preview = QLabel("等待图像")
+        self.image_preview = StablePreviewLabel("等待图像")
         self.image_preview.setAlignment(Qt.AlignCenter)
         self.image_preview.setMinimumSize(360, 270)
-        self.image_preview.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.image_preview.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self.image_preview.setStyleSheet(
             "QLabel { background: #f8fafc; color: #667085; "
             "border: 1px solid #d0d5dd; border-radius: 4px; }"
         )
         self.image_info = StatusValue("等待图像")
-        self.image_info.setWordWrap(True)
+        self.image_info.setWordWrap(False)
+        self.image_info.setFixedHeight(32)
+        self.image_info.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
 
         layout.addWidget(self.image_preview, 1)
         layout.addWidget(self.image_info, 0)
@@ -2767,7 +2875,9 @@ class CalibrationGui(QWidget):
         telemetry.addWidget(self.imu_norm_value, 2, 1)
         self.imu_plot = ImuPlotWidget()
         self.imu_info = StatusValue("等待 IMU")
-        self.imu_info.setWordWrap(True)
+        self.imu_info.setWordWrap(False)
+        self.imu_info.setFixedHeight(32)
+        self.imu_info.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         layout.addLayout(telemetry)
         layout.addWidget(self.imu_plot, 1)
         layout.addWidget(self.imu_info, 0)
@@ -3577,6 +3687,7 @@ class CalibrationGui(QWidget):
         self._update_recorder()
         self._update_motion_hint()
         self._update_tip()
+        self._schedule_content_splitter_restore()
 
     def _image_stream_ready(self, now: float) -> bool:
         stats = self.bridge.direct_sensor.stats()

@@ -52,8 +52,8 @@ calibration_gui:
     # Run AprilTag detection on a downscaled grayscale image, then scale corners back
     # before solvePnP. This keeps live cube_pose near the target rate on 1280x720 input.
     tag_detection_scale: 0.5
-    # Preview is intentionally cheaper than detection. It is only for operator feedback.
-    preview_scale: 0.5
+    # GUI preview keeps source resolution for operator inspection; display rate limits load.
+    preview_scale: 1.0
     gui_display_rate_hz: 5.0
     draw_preview_overlay: true
     publish_tf: true
