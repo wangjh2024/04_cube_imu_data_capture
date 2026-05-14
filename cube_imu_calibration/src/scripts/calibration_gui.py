@@ -561,6 +561,15 @@ def fmt_seconds(value: float) -> str:
     return f"{max(0.0, float(value)):.0f}s"
 
 
+def safe_rclpy_shutdown() -> None:
+    try:
+        if rclpy.ok():
+            rclpy.shutdown()
+    except Exception as exc:  # noqa: BLE001 - shutdown can race with ROS launch signal handling.
+        if "rcl_shutdown already called" not in str(exc):
+            print(f"[calibration_gui] rclpy shutdown warning: {exc}", file=sys.stderr, flush=True)
+
+
 def rotation_matrix_to_quaternion_xyzw(matrix: np.ndarray) -> tuple[float, float, float, float]:
     """Convert a 3x3 rotation matrix to ROS quaternion order x, y, z, w."""
     trace = float(np.trace(matrix))
@@ -690,6 +699,7 @@ class RosBridge:
         self.direct_sensor_status = (
             "直连采集库已加载" if self.direct_sensor.available() else self.direct_sensor.error
         )
+        self._shutdown_done = False
 
         self.last_status = None
         self.last_status_wall = 0.0
@@ -2042,15 +2052,19 @@ class RosBridge:
         self._poll_direct_sensor()
 
     def shutdown(self) -> None:
+        if self._shutdown_done:
+            return
+        self._shutdown_done = True
         self.direct_recorder.stop()
         self.stop_direct_sensor()
-        if self.direct_start_thread is not None and self.direct_start_thread.is_alive():
-            self.direct_start_thread.join(timeout=1.0)
         self.direct_sensor.close()
         if self.pose_csv_file is not None:
             self.pose_csv_file.close()
             self.pose_csv_file = None
-        self.node.destroy_node()
+        try:
+            self.node.destroy_node()
+        except Exception as exc:  # noqa: BLE001 - GUI is already exiting; avoid masking the root cause.
+            print(f"[calibration_gui] node destroy warning: {exc}", file=sys.stderr, flush=True)
 
 
 class StatusValue(QLabel):
@@ -3692,9 +3706,21 @@ class CalibrationGui(QWidget):
         ok, status = self.direct_start_result
         self.direct_start_in_progress = False
         self.direct_start_result = None
+        if self.direct_start_thread is not None and not self.direct_start_thread.is_alive():
+            self.direct_start_thread.join(timeout=0.0)
+            self.direct_start_thread = None
         if ok:
-            self.bridge.last_service_message = "直连采集已启动：Orbbec 图像 + Cube 串口 IMU"
-            self.runtime_state.set_state(self.bridge.last_service_message, "ok")
+            stats = self.bridge.direct_sensor.stats()
+            if stats.imu_online:
+                self.bridge.last_service_message = "直连采集已启动：Orbbec 图像 + Cube 串口 IMU"
+                self.runtime_state.set_state(self.bridge.last_service_message, "ok")
+            else:
+                serial_text, _serial_state = self._serial_port_status_text()
+                self.bridge.last_service_message = (
+                    "直连采集已启动：Orbbec 图像在线；Cube 串口 IMU 未在线，"
+                    f"{serial_text}"
+                )
+                self.runtime_state.set_state(self.bridge.last_service_message, "warn")
         else:
             detail = status or self.bridge.direct_sensor_status or self.bridge.direct_sensor.error
             self.bridge.last_service_message = "直连采集启动失败：" + detail
@@ -4692,8 +4718,10 @@ class CalibrationGui(QWidget):
                 missing.append("CameraInfo")
             vision_ok = self._image_stream_ready(now) and self._camera_info_ready(now)
             if vision_ok and missing == ["串口 IMU"]:
+                serial_text, _serial_state = self._serial_port_status_text()
                 self.tip.set_state(
-                    "视觉原始画面已稳定显示；正式采集仍缺 Cube 串口 IMU，不会使用 Orbbec 相机内置 IMU。",
+                    "视觉原始画面已稳定显示；正式采集仍缺 Cube 串口 IMU，"
+                    f"不会使用 Orbbec 相机内置 IMU；{serial_text}",
                     "bad",
                 )
             else:
@@ -4720,6 +4748,16 @@ class CalibrationGui(QWidget):
 
     def closeEvent(self, event) -> None:  # noqa: N802 - Qt API name.
         self.timer.stop()
+        if self.direct_start_thread is not None and self.direct_start_thread.is_alive():
+            self.direct_start_thread.join(timeout=1.0)
+        if self.direct_start_thread is not None and self.direct_start_thread.is_alive():
+            self.bridge.last_service_message = "直连采集启动仍未返回，请稍后再关闭"
+            self.timer.start(20)
+            event.ignore()
+            return
+        self.direct_start_thread = None
+        self.direct_start_in_progress = False
+        self.direct_start_result = None
         self._stop_runtime_nodes()
         self.bridge.shutdown()
         event.accept()
@@ -4745,7 +4783,7 @@ def main() -> int:
     window = CalibrationGui(bridge)
     window.show()
     exit_code = app.exec_()
-    rclpy.shutdown()
+    safe_rclpy_shutdown()
     return exit_code
 
 
